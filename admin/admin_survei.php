@@ -358,7 +358,7 @@
                             <input type="date" id="survey_tanggal" name="survey_tanggal" required><br><br>
         
                             <!-- Contoh membuat soal survei -->
-                            <label for="survey_deskripsi">Nomor Urut Pertanyaan 1:</label><br>
+                            <label for="survey_deskripsi">Nomor Urut:</label><br>
                             <input type="text" id="nomor_urut_1" name="nomor_urut_1" required><br><br>
 
                             <label for="soal_1">Pertanyaan 1:</label><br>
@@ -371,7 +371,7 @@
                                 <option value="y/n">Ya/Tidak</option>
                             </select><br><br>
 
-                            <label for="survey_deskripsi">Nomor Urut Pertanyaan 2:</label><br>
+                            <label for="survey_deskripsi">Nomor Urut:</label><br>
                             <input type="text" id="nomor_urut_2" name="nomor_urut_2" required><br><br>
 
                             <label for="soal_2">Pertanyaan 2:</label><br>

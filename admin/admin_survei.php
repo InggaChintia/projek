@@ -329,60 +329,59 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="proses_buat_survei.php" method="post">
-                                <label for="survey_nama">Nama Survei:</label><br>
-                                <input type="text" id="survey_nama" name="survey_nama" required><br><br>
+                        <form action="proses_buat_survei.php" method="post">
+    <label for="survey_nama">Nama Survei:</label><br>
+    <input type="text" id="survey_nama" name="survey_nama" required><br><br>
 
-                                <label for="kategori_id">Kategori:</label><br>
-                                
-                                <select id="kategori_id" name="kategori_id">
-                                    <option value="1">Fasilitas</option>
-                                    <option value="2">Akademik</option>
-                                    <option value="3">Pelayanan</option>
-                                    <option value="4">Alumni</option>
-                                </select><br><br>
+    <label for="kategori_id">Kategori:</label><br>
+    <select id="kategori_id" name="kategori_id">
+        <option value="1">Fasilitas</option>
+        <option value="2">Akademik</option>
+        <option value="3">Pelayanan</option>
+        <option value="4">Alumni</option>
+    </select><br><br>
 
-                                <label for="survey_jenis">Jenis Survei:</label><br>
-                                <select id="survey_jenis" name="survey_jenis" required>
-                                    <option value="ortu">Orang Tua</option>
-                                    <option value="mahasiswa">Mahasiswa</option>
-                                    <option value="tendik">Tenaga Pendidik</option>
-                                    <option value="dosen">Dosen</option>
-                                    <option value="alumni">Alumni</option>
-                                    <option value="industri">Industri</option>
-                                </select><br><br>
+    <label for="survey_jenis">Jenis Survei:</label><br>
+    <select id="survey_jenis" name="survey_jenis" required>
+        <option value="ortu">Orang Tua</option>
+        <option value="mahasiswa">Mahasiswa</option>
+        <option value="tendik">Tenaga Pendidik</option>
+        <option value="dosen">Dosen</option>
+        <option value="alumni">Alumni</option>
+        <option value="industri">Industri</option>
+    </select><br><br>
 
-                                <label for="survey_deskripsi">Deskripsi Survei:</label><br>
-                                <textarea id="survey_deskripsi" name="survey_deskripsi" rows="4" required></textarea><br><br>
+    <label for="survey_deskripsi">Deskripsi Survei:</label><br>
+    <textarea id="survey_deskripsi" name="survey_deskripsi" rows="4" required></textarea><br><br>
 
-                                <label for="survey_tanggal">Tanggal Survei:</label><br>
-                                <input type="date" id="survey_tanggal" name="survey_tanggal" required><br><br>
+    <label for="survey_tanggal">Tanggal Survei:</label><br>
+    <input type="date" id="survey_tanggal" name="survey_tanggal" required><br><br>
 
-                                <!-- Contoh membuat soal survei -->
-                                <label for="soal_1">Pertanyaan 1:</label><br>
-                                <input type="text" id="soal_1" name="soal_1" required><br><br>
+    <!-- Contoh membuat soal survei -->
+    <label for="soal_1">Pertanyaan 1:</label><br>
+    <input type="text" id="soal_1" name="soal_1" required><br><br>
 
-                                <label for="jenis_soal_1">Jenis Pertanyaan 1:</label><br>
-                                <select id="jenis_soal_1" name="jenis_soal_1" required>
-                                    <option value="skala">Skala</option>
-                                    <option value="isian">Isian</option>
-                                    <option value="y/n">Ya/Tidak</option>
-                                </select><br><br>
+    <label for="jenis_soal_1">Jenis Pertanyaan 1:</label><br>
+    <select id="jenis_soal_1" name="jenis_soal_1" required>
+        <option value="skala">Skala</option>
+        <option value="isian">Isian</option>
+        <option value="y/n">Ya/Tidak</option>
+    </select><br><br>
+    <label for="soal_2">Pertanyaan 2:</label><br>
+    <input type="text" id="soal_2" name="soal_2" required><br><br>
 
-                                <label for="soal_2">Pertanyaan 2:</label><br>
-                                <input type="text" id="soal_2" name="soal_2" required><br><br>
+    <label for="jenis_soal_2">Jenis Pertanyaan 2:</label><br>
+    <select id="jenis_soal_2" name="jenis_soal_2" required>
+        <option value="skala">Skala</option>
+        <option value="isian">Isian</option>
+        <option value="y/n">Ya/Tidak</option>
+    </select><br><br>
 
-                                <label for="jenis_soal_2">Jenis Pertanyaan 2:</label><br>
-                                <select id="jenis_soal_2" name="jenis_soal_2" required>
-                                    <option value="skala">Skala</option>
-                                    <option value="isian">Isian</option>
-                                    <option value="y/n">Ya/Tidak</option>
-                                </select><br><br>
+    <!-- Dan seterusnya sesuai dengan jumlah pertanyaan yang ingin dibuat -->
 
-                                <!-- Dan seterusnya sesuai dengan jumlah pertanyaan yang ingin dibuat -->
+    <input type="submit" value="Buat Survei">
+</form>
 
-                                <input type="submit" value="Buat Survei">
-                            </form>
 
                         </div>
                     </div>

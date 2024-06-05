@@ -189,20 +189,24 @@
             min-width: 100px;
         }
         .modal-content {
-            border-radius: 10px;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 700px;
+            margin: 0 auto; /* Mengatur margin menjadi auto untuk membuat elemen berada di tengah */
         }
+
         .modal-header {
             border-bottom: none;
             padding-bottom: 0;
         }
         .modal-header h5 {
             font-weight: bold;
+            font-size: 1.5rem;
         }
         .modal-body {
-            padding-top: 0;
+            padding: 20px;
         }
         .form-group {
             margin-bottom: 15px;
@@ -239,16 +243,6 @@
             border-radius: 10px;
             min-width: 50px; /* Menetapkan lebar minimum untuk tombol */
             margin-right: 200px;
-        }
-        /* CSS untuk tampilan modal */
-        .modal-content {
-            border-radius: 10px;
-        }
-        .modal-title {
-            font-size: 1.5rem;
-        }
-        .modal-body {
-            padding: 20px;
         }
 
         /* CSS untuk label dan input */
@@ -379,6 +373,58 @@
 
                             <label for="jenis_soal_2">Jenis Pertanyaan 2:</label><br>
                             <select id="jenis_soal_2" name="jenis_soal_2" required>
+                                <option value="skala">Skala</option>
+                                <option value="isian">Isian</option>
+                                <option value="y/n">Ya/Tidak</option>
+                            </select><br><br>
+
+                            <label for="survey_deskripsi">Nomor Urut:</label><br>
+                            <input type="text" id="nomor_urut_3" name="nomor_urut_3" required><br><br>
+
+                            <label for="soal_3">Pertanyaan 3:</label><br>
+                            <input type="text" id="soal_3" name="soal_3" required><br><br>
+
+                            <label for="jenis_soal_3">Jenis Pertanyaan 3:</label><br>
+                            <select id="jenis_soal_3" name="jenis_soal_3" required>
+                                <option value="skala">Skala</option>
+                                <option value="isian">Isian</option>
+                                <option value="y/n">Ya/Tidak</option>
+                            </select><br><br>
+
+                            <label for="survey_deskripsi">Nomor Urut:</label><br>
+                            <input type="text" id="nomor_urut_4" name="nomor_urut_4" required><br><br>
+
+                            <label for="soal_4">Pertanyaan 4:</label><br>
+                            <input type="text" id="soal_4" name="soal_4" required><br><br>
+
+                            <label for="jenis_soal_4">Jenis Pertanyaan 4:</label><br>
+                            <select id="jenis_soal_4" name="jenis_soal_4" required>
+                                <option value="skala">Skala</option>
+                                <option value="isian">Isian</option>
+                                <option value="y/n">Ya/Tidak</option>
+                            </select><br><br>
+
+                            <label for="survey_deskripsi">Nomor Urut:</label><br>
+                            <input type="text" id="nomor_urut_5" name="nomor_urut_5" required><br><br>
+
+                            <label for="soal_5">Pertanyaan 5:</label><br>
+                            <input type="text" id="soal_5" name="soal_5" required><br><br>
+
+                            <label for="jenis_soal_5">Jenis Pertanyaan 5:</label><br>
+                            <select id="jenis_soal_5" name="jenis_soal_5" required>
+                                <option value="skala">Skala</option>
+                                <option value="isian">Isian</option>
+                                <option value="y/n">Ya/Tidak</option>
+                            </select><br><br>
+
+                            <label for="survey_deskripsi">Nomor Urut:</label><br>
+                            <input type="text" id="nomor_urut_6" name="nomor_urut_6" required><br><br>
+
+                            <label for="soal_6">Pertanyaan 6:</label><br>
+                            <input type="text" id="soal_6" name="soal_6" required><br><br>
+
+                            <label for="jenis_soal_6">Jenis Pertanyaan 6:</label><br>
+                            <select id="jenis_soal_6" name="jenis_soal_6" required>
                                 <option value="skala">Skala</option>
                                 <option value="isian">Isian</option>
                                 <option value="y/n">Ya/Tidak</option>

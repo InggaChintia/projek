@@ -45,6 +45,5 @@ if (is_array($soal_nama)) {
     echo "Tidak ada soal yang ditambahkan.";
 }
 
-
 // Tutup koneksi
 $conn->close();

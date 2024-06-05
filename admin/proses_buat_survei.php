@@ -68,9 +68,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         for ($i = 1; isset($_POST['soal_' . $i]); $i++) {
             $soal_nama = $_POST['soal_' . $i];
             $jenis_soal = $_POST['jenis_soal_' . $i];
+            $no_urut = $_POST['nomor_urut_' . $i];
 
-            $sql_insert_soal = "INSERT INTO m_survey_soal (survey_id, kategori_id, soal_jenis, soal_nama) 
-                                VALUES ($survey_id, $kategori_id, '$jenis_soal', '$soal_nama')";
+            $sql_insert_soal = "INSERT INTO m_survey_soal (survey_id, kategori_id, soal_jenis, soal_nama, no_urut) 
+                                VALUES ($survey_id, $kategori_id, '$jenis_soal', '$soal_nama', $no_urut)";
 
             $result_insert_soal = mysqli_query($conn, $sql_insert_soal);
 

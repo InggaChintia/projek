@@ -237,11 +237,42 @@ while ($row = mysqli_fetch_assoc($query_data_soal_dan_kategori)) {
         
             <form method="post">
                 <label for="survey_jenis">Jenis Survei:</label>
-                <input type="text" id="survey_jenis" name="survey_jenis" value="<?php echo htmlspecialchars($data_soal_dan_kategori[0]['survey_jenis']); ?>"><br><br>
+            <select id="survey_jenis" name="survey_jenis">
+                <?php 
+                $selected_survey_jenis = htmlspecialchars($data_soal_dan_kategori[0]['survey_jenis']);
+                $options = [
+                    'ortu' => 'Orang Tua',
+                    'mahasiswa' => 'Mahasiswa',
+                    'tendik' => 'Tenaga Pendidik',
+                    'dosen' => 'Dosen',
+                    'alumni' => 'Alumni',
+                    'industri' => 'Industri'
+                ];
+                foreach ($options as $value => $label) {
+                    $selected = ($value == $selected_survey_jenis) ? 'selected' : '';
+                    echo "<option value=\"$value\" $selected>$label</option>";
+                }
+                ?>
+            </select>
+            <br><br>
 
-                <label for="kategori_id">Kategori:</label>
-                <input type="text" id="kategori_id" name="kategori_id" value="<?php echo htmlspecialchars($data_soal_dan_kategori[0]['kategori_nama']); ?>"><br><br>
-
+            <label for="kategori_id">Kategori:</label>
+            <select id="kategori_id" name="kategori_id">
+                <?php 
+                $selected_kategori_id = htmlspecialchars($data_soal_dan_kategori[0]['kategori_id']);
+                $options = [
+                    1 => 'Fasilitas',
+                    2 => 'Akademik',
+                    3 => 'Pelayanan',
+                    4 => 'Alumni'
+                ];
+                foreach ($options as $value => $label) {
+                    $selected = ($value == $selected_kategori_id) ? 'selected' : '';
+                    echo "<option value=\"$value\" $selected>$label</option>";
+                }?>
+            </select>
+            <br><br>
+                
                 <label for="survey_nama">Nama Survei:</label>
                 <input type="text" id="survey_nama" name="survey_nama" value="<?php echo htmlspecialchars($data_soal_dan_kategori[0]['survey_nama']); ?>"><br><br>
 
@@ -252,14 +283,16 @@ while ($row = mysqli_fetch_assoc($query_data_soal_dan_kategori)) {
                 <input type="datetime-local" id="survey_tanggal" name="survey_tanggal" value="<?php echo date('Y-m-d\TH:i', strtotime($data_soal_dan_kategori[0]['survey_tanggal'])); ?>"><br><br>
 
                 <label for="survey_soal">Pertanyaan Survei:</label>
-                <ul>
-                <?php foreach ($data_soal_dan_kategori as $soal) { ?>
-                    <li><?php echo htmlspecialchars($soal['soal_nama']); ?></li>
+                <ol>
+                <?php foreach ($data_soal_dan_kategori as $index => $soal) { ?>
+                    <li>
+                        <input type="text" id="soal_nama_<?php echo $index; ?>" name="soal_nama_<?php echo $index; ?>" value="<?php echo htmlspecialchars($soal['soal_nama']); ?>">
+                        <input type="hidden" name="soal_id_<?php echo $index; ?>" value="<?php echo htmlspecialchars($soal['soal_id']); ?>">
+                    </li>
                 <?php } ?>
-
-                </ul><br>
-
+                </ol>
+                <br>
+                
                 <input type="submit" value="Simpan">
-
             </form>
 </html>

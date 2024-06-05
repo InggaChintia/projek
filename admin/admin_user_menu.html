@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survei Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-vertical {
+            background-color: #f0f2f5;
+            color: #304C65;
+            height: 100vh;
+            padding: 20px;
+            position: fixed;
+            width: 250px;
+        }
+        .navbar-vertical img {
+            width: 45px;
+            margin-bottom: 10px;
+            margin-top: -10px;
+        }
+        .navbar-vertical p {
+            margin: 0;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            margin-top: -50px;
+            margin-left: 54px;
+            font-size: 20px;
+        }
+        .navbar-vertical .nav-link {
+            color: #304C65;
+            font-weight: 700;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .navbar-vertical .nav-link i {
+            margin-right: 10px;
+        }
+        .navbar-vertical .nav-link:hover {
+            background-color: #e0e0e0;
+        }
+        .navbar-vertical .nav-link.active {
+            background-color: #e0e0e0;
+        }
+        .navbar-vertical .logout {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .content {
+            margin-left: 240px;
+            padding: 0px;
+        }
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #304C65;
+            padding: 10px 20px;
+            color: white;
+        }
+        .content-header .profile {
+            display: flex;
+            align-items: center;
+        }
+        .content-header .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .survey-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .survey-content h2 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .survey-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-around;
+        }
+        .card {
+            flex: 1 1 200px;
+            text-align: center;
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card .bi {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #304C65;
+            margin-top: 10px;
+        }
+        .card a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            background-color: #304C65;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .card a:hover {
+            background-color: #203040;
+        }
+        .nav-divider {
+            border: none;
+            height: 2px; 
+            background-color: #304C65; 
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar-vertical">
+        <img src="aset/logopolinema.png" alt="Polinema Logo">
+        <p>Survei Polinema</p>
+        <hr class="nav-divider">
+        <nav class="nav flex-column mt-4">
+            <a class="nav-link active" href="user-dashboard.php">
+                <i class="bi bi-speedometer2"></i> Overview
+            </a>
+            <a class="nav-link" href="user-detailakun.php">
+                <i class="bi bi-person"></i> User
+            </a>
+        </nav>
+        <a class="nav-link logout" href="user-register.php">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+    </div>
+    <div class="content">
+        <div class="content-header">
+            <h1></h1>
+            <div class="profile">
+                <img src="aset/man.jpg" alt="Profile Picture">
+                <span>Bayu</span>
+            </div>
+        </div>
+        <div class="survey-content">
+            <h2>Isi Survei</h2>
+            <hr class="nav-divider">
+            <div class="survey-cards">
+                <div class="card">
+                    <i class="bi bi-building"></i>
+                    <div class="card-title">Fasilitas</div>
+                    <a href="user-isisurvei-fasilitas.php">Lakukan Survei</a>
+                </div>
+                <div class="card">
+                    <i class="bi bi-book"></i>
+                    <div class="card-title">Akademik</div>
+                    <a href="user-isisurvei-akademik.php">Lakukan Survei</a>
+                </div>
+                <div class="card">
+                    <i class="bi bi-gear"></i>
+                    <div class="card-title">Pelayanan</div>
+                    <a href="user-isisurvei-pelayanan.php">Lakukan Survei</a>
+                </div>
+                <div class="card">
+                    <i class="bi bi-person-check"></i>
+                    <div class="card-title">Alumni</div>
+                    <a href="user-isisurvei-alumni.php">Lakukan Survei</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

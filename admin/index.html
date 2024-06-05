@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Survei Polinema</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <form action="add_survey.php" method="post">
+            <label for="name">Nama Survei:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="type">Jenis Survei:</label>
+            <input type="text" id="type" name="type" required>
+            
+            <button type="submit">Tambah Survei</button>
+        </form>
+        <form action="add_question.php" method="post">
+            <label for="survey_id">ID Survei:</label>
+            <input type="number" id="survey_id" name="survey_id" required>
+            
+            <label for="question_text">Pertanyaan:</label>
+            <textarea id="question_text" name="question_text" required></textarea>
+            
+            <button type="submit">Tambah Pertanyaan</button>
+        </form>
+        
+    </body>
+</html>

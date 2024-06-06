@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $survey_tanggal = $_POST['survey_tanggal'];
     $kategori_id = $_POST['kategori_id'];
     $user_id = 1; // Misalnya, sesuaikan dengan id admin yang sedang login
-    $survey_kode = 'mhs'; // Sesuaikan jika diperlukan
+    $survey_kode = $_POST['survey_kode']; // Ambil nilai survey_kode dari formulir HTML
 
     // Masukkan data survei ke dalam tabel m_survey
     $insert_data_survey = mysqli_query($conn, "INSERT INTO m_survey (user_id, survey_jenis, survey_kode, survey_nama, survey_deskripsi, survey_tanggal) VALUES 

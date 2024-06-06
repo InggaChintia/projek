@@ -229,19 +229,6 @@ while ($row = mysqli_fetch_assoc($query_data_soal_dan_kategori)) {
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
-        button[type="button"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-left: 1130px;
-        }
-        button[type="button"]:hover {
-            background-color: #0056b3;
-        }
         button[type="back"] {
             background-color: #007bff;
             color: #fff;
@@ -338,8 +325,6 @@ while ($row = mysqli_fetch_assoc($query_data_soal_dan_kategori)) {
                 <?php } ?>
                 </ol>
                 <br>
-                <button type="button" id="add_question_button">+</button>
-                <br><br>
                 
                 <input type="submit" value="Simpan">
 

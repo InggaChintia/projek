@@ -164,19 +164,6 @@
             margin-bottom: 10px;
             margin-left: 20px;
         }
-        .search-bar input {
-            padding: 8px 12px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-            width: 300px;
-        }
-        .search-bar button {
-            padding: 8px 12px;
-            border: none;
-            background-color: #304C65;
-            color: white;
-            border-radius: 20px;
-        }
         .table-responsive {
             margin-top: 20px;
             margin-left: 20px;
@@ -231,9 +218,12 @@
             font-size: 14px;
         }
         .search-bar input[type="text"] {
-            width: auto; /* Menggunakan lebar otomatis */
+            
             flex: 1; /* Menggunakan fleksibilitas untuk menyesuaikan ukuran */
             border-radius: 10px;
+            min-width: 50px;
+            margin-right: 800px;
+            padding: 8px 12px;
         }
         .search-bar button {
             padding: 8px 12px;
@@ -243,6 +233,7 @@
             border-radius: 10px;
             min-width: 50px; /* Menetapkan lebar minimum untuk tombol */
             margin-right: 200px;
+            margin-top: 20px;
         }
 
         /* CSS untuk label dan input */
@@ -309,7 +300,6 @@
             <h2>Survei Pengguna</h2>
             <hr class="nav-divider">
             <div class="search-bar">
-                <input type="text" placeholder="Cari">
                 <button class="btn-add" data-toggle="modal" data-target="#addSurveyModal">tambahkan survei</button>
             </div>
             <!-- Tambah Survei -->
@@ -344,6 +334,9 @@
                                 <option value="alumni">Alumni</option>
                                 <option value="industri">Industri</option>
                             </select><br><br>
+
+                            <label for="survey_kode">Kode Survey:</label>
+                            <input type="text" id="survey_kode" name="survey_kode">
 
                             <label for="survey_deskripsi">Deskripsi Survei:</label><br>
                             <textarea id="survey_deskripsi" name="survey_deskripsi" rows="4" required></textarea><br><br>

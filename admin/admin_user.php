@@ -158,6 +158,34 @@
         .table .user-info span {
             margin-left: 10px;
         }
+        .filter-section {
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        .filter-section h3 {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+        .filter-group {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .filter-group label {
+            margin-right: 10px;
+            margin-left: 20px;
+            font-size: 16px;
+        }
+        .filter-group select {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
@@ -182,10 +210,23 @@
             </div>
         </div>
         <div class="survey-content">
-            <h2>Detail Mahasiswa</h2>
+            <h2>Detail Pengguna</h2>
             <hr class="nav-divider">
-            <div class="search-bar">
-                <input type="text" placeholder="Cari">
+            <div class="filter-section">
+            <div>
+                <h3>Filter</h3><br>
+                <div class="filter-group">
+                    <label for="role">Role:</label>
+                    <select id="role" name="role">
+                        <option value="" disabled selected>Pilih</option>
+                        <option value="guest">Mahasiswa</option>
+                        <option value="admin">Dosen</option>
+                        <option value="user">Tendik</option>
+                        <option value="guest">Alumni</option>
+                        <option value="guest">OrangTua/Wali Mahasiswa</option>
+                        <option value="guest">Industri</option>
+                    </select>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table">
@@ -222,5 +263,25 @@
             </div>            
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#role').on('change', function(){
+                var selectedRole = $(this).val();
+                
+                // Debugging - Tampilkan nilai role yang dipilih
+                console.log("Role yang dipilih: " + selectedRole);
+
+                $.ajax({
+                    url: 'tampil_data_user.php',
+                    type: 'POST',
+                    data: {role: selectedRole},
+                    success: function(data){
+                        $('tbody').html(data);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ssss", $username, $nama, $password, $role);
 
         if ($stmt->execute()) {
-            header("Location: user_isidatadiri.php?nama=" . urlencode($nama) . "&role=" . urlencode($role));
+            header("Location: user-isidatadiri.php?nama=" . urlencode($nama) . "&role=" . urlencode($role));
             exit();
         } else {
             //    echo "Something went wrong. Please try again later.";

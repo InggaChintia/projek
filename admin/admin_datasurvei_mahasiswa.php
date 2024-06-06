@@ -1,3 +1,23 @@
+<?php
+require_once 'koneksi.php';
+
+// Query to fetch data from t_responden_mahasiswa, m_survey, and t_jawaban_mahasiswa
+$sql = "SELECT 
+            r.responden_nama, 
+            s.survey_nama, 
+            r.responden_tanggal, 
+            j.jawaban
+        FROM 
+            t_responden_mahasiswa r
+        JOIN 
+            m_survey s ON r.survey_id = s.survey_id
+        JOIN 
+            t_jawaban_mahasiswa j ON r.responden_mahasiswa_id = j.responden_mahasiswa_id";
+
+$result = $conn->query($sql);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,7 +151,7 @@
         }
         .search-bar input {
             padding: 8px 12px;
-            border-radius: 20px;
+            border-radius: 10px;
             border: 1px solid #ccc;
             width: 300px;
         }
@@ -158,9 +178,38 @@
         .table .user-info span {
             margin-left: 10px;
         }
+        .survey-content button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .survey-content button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
+    <?php
+        if ($result->num_rows > 0) {
+        // output data of each row
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row["responden_nama"] . "</td>";
+                echo "<td>" . $row["survey_nama"] . "</td>";
+                echo "<td>Mahasiswa</td>"; // Assuming all respondents are students, adjust as needed
+                echo "<td>" . $row["responden_tanggal"] . "</td>";
+                echo "<td>" . $row["jawaban_poin"] . "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='6'>No data found</td></tr>";
+        }
+        $conn->close();
+    ?>
     <div class="navbar-vertical">
         <img src="aset/logopolinema.png" alt="Polinema Logo">
         <p>Survei Polinema</p>
@@ -191,8 +240,9 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Jenis Survei</th>
+                            <th>Nama</th>
                             <th>Nama Survei</th>
+                            <th>Keterangan</th>
                             <th>Tanggal</th>
                             <th>Poin</th>
                             <th></th>
@@ -200,38 +250,44 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Mahasiswa</td>
                             <td></td>
+                            <td>Survey Fasilitas Mahasiswa 2024</td>
+                            <td>Mahasiswa</td>
                             <td>25-11-2024</td>
                             <td></td>
                         </tr>
                         <tr>
+                            <td></td>
+                            <td>Survey Fasilitas Dosen 2024</td>
                             <td>Dosen</td>
-                            <td></td>
                             <td>25-11-2024</td>
                             <td></td>
                         </tr>
                         <tr>
+                            <td></td>
+                            <td>Survey Akademik Mahasiswa 2024</td>
                             <td>Mahasiswa</td>
-                            <td></td>
                             <td>25-11-2024</td>
                             <td></td>
                         </tr>
                         <tr>
+                            <td></td>
+                            <td>Survey Pelayanan Mahasiswa 2024</td>
                             <td>Mahasiswa</td>
-                            <td></td>
                             <td>25-11-2024</td>
                             <td></td>
                         </tr>
                         <tr>
+                            <td></td>
+                            <td>Survey Akademik Dosen 2024</td>
                             <td>Dosen</td>
-                            <td></td>
                             <td>25-11-2024</td>
                             <td></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <button onclick="history.back()">Kembali</button>
         </div> 
     </div>
 </body>

@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survei Polinema</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css">
     <style>
         body {
             margin: 0;
@@ -102,56 +100,63 @@
             background-color: #304C65; 
             margin: 10px 0;
         }
-        .survey-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: space-around;
+        .table-responsive {
+            margin-top: 20px;
+            margin-left: 20px;
         }
-        .card {
-            flex: 1 1 calc(33.333% - 40px);
-            text-align: center;
-            padding: 20px;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
+        .table th, .table td {
+            text-align: left;
+            vertical-align: middle;
         }
-        .card:hover {
-            transform: scale(1.05);
-        }
-        .card .bi {
-            font-size: 2rem;
+        .btn-add {
+            display: inline-block;
+            padding: 10px 20px;
             margin-bottom: 10px;
-        }
-        .card-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #304C65;
-            margin-top: 10px;
-        }
-        .card a {
-            display: block;
-            text-decoration: none;
-            color: white;
             background-color: #304C65;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
+            color: white;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
         }
-        .card a:hover {
-            background-color: #203040;
+        .btn-add:hover {
+            background-color: #273c4e;
+            color: white;
         }
-        .nav-divider {
+        .search-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            margin-left: 20px;
+        }
+        .search-bar input {
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 300px;
+        }
+        .search-bar button {
+            padding: 8px 12px;
             border: none;
-            height: 2px; 
-            background-color: #304C65; 
-            margin: 10px 0;
+            background-color: #304C65;
+            color: white;
+            border-radius: 20px;
+        }
+        .table .dropdown-menu {
+            min-width: 100px;
+        }
+        .table .profile-pic {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .table .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .table .user-info span {
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -162,7 +167,7 @@
         <hr class="nav-divider">
         <nav class="nav flex-column mt-4">
             <a class="nav-link" href="admin_overview.php"><img src="aset/overview.png" alt="Overview Icon">Overview</a>
-            <a class="nav-link active" href="#"><img src="aset/users.png" alt="User Icon">User</a>
+            <a class="nav-link active" href="admin_user.php"><img src="aset/users.png" alt="User Icon">User</a>
             <a class="nav-link" href="admin_datasurvei_dashboard.php"><img src="aset/data.png" alt="Data Survei Icon">Data Survei</a>
             <a class="nav-link" href="admin_survei.php"><img src="aset/survei.png" alt="Survei Icon">Survei</a>
         </nav>
@@ -173,44 +178,48 @@
             <h1>  </h1>
             <div class="profile">
                 <a class="nav-link" href="admin_profile.html"><img src="aset/profil.jpg" alt="Profile Picture">
-                <span>Admin</span></a>
+                    <span>Admin</span></a>
             </div>
         </div>
         <div class="survey-content">
-            <h2>Daftar Pengguna</h2>
+            <h2>Detail Mahasiswa</h2>
             <hr class="nav-divider">
-            <div class="survey-cards">
-                <div class="card">
-                    <i class="bi bi-building"></i>
-                    <div class="card-title">Mahasiswa</div>
-                    <a href="admin_user_mahasiswa.php">Lihat Detail</a>
-                </div>
-                <div class="card">
-                    <i class="bi bi-book"></i>
-                    <div class="card-title">Dosen</div>
-                    <a href="admin_user_dosen.php">Lihat Detail</a>
-                </div>
-                <div class="card">
-                    <i class="bi bi-gear"></i>
-                    <div class="card-title">Tenaga Pendidikan</div>
-                    <a href="admin_user_tendik.php">Lihat Detail</a>
-                </div>
-                <div class="card">
-                    <i class="bi bi-people"></i>
-                    <div class="card-title">Orang tua/Wali Mahasiswa</div>
-                    <a href="admin_user_ortu.php">Lihat Detail</a>
-                </div>
-                <div class="card">
-                    <i class="bi bi-gear"></i>
-                    <div class="card-title">Alumni</div>
-                    <a href="admin_user_alumni.php">Lihat Detail</a>
-                </div>
-                <div class="card">
-                    <i class="bi bi-gear"></i>
-                    <div class="card-title">Industri</div>
-                    <a href="admin_user_industri.php">Lihat Detail</a>
-                </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Cari">
             </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Keterangan</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        require_once 'koneksi.php';
+
+                        // Query untuk mengambil data dari m_user_data
+                        $query = "SELECT nama, role FROM m_user_data";
+                        $result = $conn->query($query);
+
+                        if ($result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td class='user-info'><span>" . $row["nama"] . "</span></td>";
+                                echo "<td>" . $row["role"] . "</td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='2'>Tidak ada data ditemukan</td></tr>";
+                        }
+
+                        $conn->close();
+                    ?>
+                    </tbody>
+                </table>
+            </div>            
         </div>
     </div>
 </body>

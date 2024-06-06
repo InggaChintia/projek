@@ -162,7 +162,7 @@
         <hr class="nav-divider">
         <nav class="nav flex-column mt-4">
             <a class="nav-link" href="admin_overview.php"><img src="aset/overview.png" alt="Overview Icon">Overview</a>
-            <a class="nav-link" href="admin_user_dashboard.php"><img src="aset/users.png" alt="User Icon">User</a>
+            <a class="nav-link" href="admin_user.php"><img src="aset/users.png" alt="User Icon">User</a>
             <a class="nav-link active" href="admin_datasurvei_dashboard.php"><img src="aset/data.png" alt="Data Survei Icon">Data Survei</a>
             <a class="nav-link" href="admin_survei.php"><img src="aset/survei.png" alt="Survei Icon">Survei</a>
         </nav>

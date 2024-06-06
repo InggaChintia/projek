@@ -216,7 +216,7 @@ $conn->close();
             <a class="nav-link active" href="user-dashboard.php">
                 <i class="bi bi-speedometer2"></i> Overview
             </a>
-            <a class="nav-link" href="user-detailakun-mahasiswa.php">
+            <a class="nav-link" href="user-detailakun-mahasiswa.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>">
                 <i class="bi bi-person"></i> User
             </a>
         </nav>
@@ -229,7 +229,7 @@ $conn->close();
             <h1> </h1>
             <div class="profile">
                 <div class="profile-info">
-                    <a href="user-detailakun-mahasiswa.php">
+                    <a href="user-detailakun-mahasiswa.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>">
                         <span id="profileName" style="color: #f8f9fa;"><?php echo htmlspecialchars($username ?? ''); ?></span>
                     </a>
                     <span> | </span>

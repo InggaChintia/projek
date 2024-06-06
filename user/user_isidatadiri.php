@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $no_peg = $_POST['no_peg'] ?? "";
     $jenis_kelamin = $_POST['jenis_kelamin'] ?? "";
     $umur = $_POST['umur'] ?? "";
+    $prodi = $_POST['prodi'] ?? "";
     $pekerjaan = $_POST['pekerjaan'] ?? "";
     $penghasilan = $_POST['penghasilan'] ?? "";
     $nim_mahasiswa = $_POST['nim_mahasiswa'] ?? "";
@@ -54,10 +55,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $row = $result->fetch_assoc();
                 $user_id = $row['user_id'];
 
-                $insert_sql = "INSERT INTO m_user_data (user_id, nama, role, nim, email, jurusan, no_telp, tahun_masuk, nip, unit, no_peg, jenis_kelamin, umur, pekerjaan, penghasilan, nim_mahasiswa, nama_mahasiswa, nama_prodi, tahun_lulus, jabatan, perusahaan, kota ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $insert_sql = "INSERT INTO m_user_data (user_id, nama, role, nim, email, jurusan, no_telp, tahun_masuk, nip, unit, no_peg, jenis_kelamin, umur, pekerjaan, penghasilan, nim_mahasiswa, nama_mahasiswa, nama_prodi, tahun_lulus, jabatan, perusahaan, kota, prodi ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 if ($insert_stmt = $conn->prepare($insert_sql)) {
-                    $insert_stmt->bind_param("isssssssssssssssssssss", $user_id, $nama, $role, $nim, $email, $jurusan, $no_telp, $tahun_masuk, $nip, $unit, $no_peg, $jenis_kelamin, $umur, $pekerjaan, $penghasilan, $nim_mahasiswa, $nama_mahasiswa, $nama_prodi, $tahun_lulus, $jabatan, $perusahaan, $kota);
+                    $insert_stmt->bind_param("issssssssssssssssssssss", $user_id, $nama, $role, $nim, $email, $jurusan, $no_telp, $tahun_masuk, $nip, $unit, $no_peg, $jenis_kelamin, $umur, $pekerjaan, $penghasilan, $nim_mahasiswa, $nama_mahasiswa, $nama_prodi, $tahun_lulus, $jabatan, $perusahaan, $kota, $prodi);
 
                     if ($insert_stmt->execute()) {
                         header("Location: user-login.php");
@@ -203,7 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                         <div class="form-group">
                                             <label for="prodi" style="font-weight: bold; color: #0D2A0D;">
-                                                prodi <span style="color: red;">*</span>
+                                                Prodi <span style="color: red;">*</span>
                                             </label>
                                             <input type="tel" id="prodi" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="prodi" placeholder="Masukkan Nomor Telepon Anda" required>
                                         </div>

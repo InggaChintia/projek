@@ -35,8 +35,6 @@ $result_data = $stmt_data->get_result();
 
 if ($result_data->num_rows == 1) {
     $row_data = $result_data->fetch_assoc();
-    // $nama = $row_data['nama'];
-    // $role = $row_data['role'];
     $nim = $row_data['nim'] ?? "";
     $prodi = $row_data['prodi'] ?? "";
     $email = $row_data['email'] ?? "";
@@ -44,7 +42,19 @@ if ($result_data->num_rows == 1) {
     $no_telp = $row_data['no_telp'] ?? "";
     $tahun_masuk = $row_data['tahun_masuk'] ?? "";
     $nip = $row_data['nip'] ?? "";
-    $unit = $row_data['unit'] ?? "";;
+    $unit = $row_data['unit'] ?? "";
+    $no_peg = $row_data['no_peg'] ?? "";
+    $tahun_lulus = $row_data['tahun_lulus'] ?? "";
+    $jenis_kelamin = $row_data['jenis_kelamin'] ?? "";
+    $umur = $row_data['umur'] ?? "";
+    $pendidikan = $row_data['pendidikan'] ?? "";
+    $penghasilan = $row_data['penghasilan'] ?? "";
+    $jabatan = $row_data['jabatan'] ?? "";
+    $perusahaan = $row_data['perusahaan'] ?? "";
+    $kota = $row_data['kota'] ?? "";
+    $nim_mahasiswa = $row_data['nim_mahasiswa'] ?? "";
+    $nama_mahasiswa = $row_data['nama_mahasiswa'] ?? "";
+    $nama_prodi = $row_data['nama_prodi'] ?? "";
 } else {
     die("User data tidak ditemukan.");
 }
@@ -349,28 +359,74 @@ $conn->close();
                             <td><?php echo htmlspecialchars($email); ?></td>
                         </tr>
                         <tr>
+                            <th scope="row">NIP/NIDN</th>
+                            <td><?php echo htmlspecialchars($nip); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Unit</th>
+                            <td><?php echo htmlspecialchars($unit); ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            <?php elseif ($role === 'tendik') : ?>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Nama</th>
+                            <td><?php echo htmlspecialchars($nama); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">No Pegawai</th>
+                            <td><?php echo htmlspecialchars($no_peg); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Unit</th>
+                            <td><?php echo htmlspecialchars($unit); ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            <?php elseif ($role === 'ortu') : ?>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Nama</th>
+                            <td><?php echo htmlspecialchars($nama); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Jenis Kelamin</th>
+                            <td><?php echo htmlspecialchars($jenis_kelamin); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Umur</th>
+                            <td><?php echo htmlspecialchars($umur); ?></td>
+                        </tr>
+                        <tr>
                             <th scope="row">Nomor handphone</th>
                             <td><?php echo htmlspecialchars($no_telp); ?></td>
                         </tr>
                         <tr>
-                            <th scope="row">NIM</th>
-                            <td><?php echo htmlspecialchars($nim); ?></td>
+                            <th scope="row">Pendidikan</th>
+                            <td><?php echo htmlspecialchars($pendidikan); ?></td>
                         </tr>
                         <tr>
-                            <th scope="row">Jurusan</th>
-                            <td><?php echo htmlspecialchars($jurusan); ?></td>
+                            <th scope="row">Penghasilan</th>
+                            <td><?php echo htmlspecialchars($penghasilan); ?></td>
                         </tr>
                         <tr>
-                            <th scope="row">Prodi</th>
-                            <td><?php echo htmlspecialchars($prodi); ?></td>
+                            <th scope="row">NIM Mahasiswa</th>
+                            <td><?php echo htmlspecialchars($nim_mahasiswa); ?></td>
                         </tr>
                         <tr>
-                            <th scope="row">Tahun Masuk</th>
-                            <td><?php echo htmlspecialchars($tahun_masuk); ?></td>
+                            <th scope="row">Nama Mahasiswa</th>
+                            <td><?php echo htmlspecialchars($nama_mahasiswa); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Nama Prodi</th>
+                            <td><?php echo htmlspecialchars($nama_prodi); ?></td>
                         </tr>
                     </tbody>
                 </table>
-            <?php elseif ($role === 'orangtua') : ?>
+            <?php elseif ($role === 'alumni') : ?>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
@@ -382,24 +438,49 @@ $conn->close();
                             <td><?php echo htmlspecialchars($email); ?></td>
                         </tr>
                         <tr>
-                            <th scope="row">Nomor handphone</th>
-                            <td><?php echo htmlspecialchars($no_telp); ?></td>
-                        </tr>
-                        <tr>
                             <th scope="row">NIM</th>
                             <td><?php echo htmlspecialchars($nim); ?></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Jurusan</th>
-                            <td><?php echo htmlspecialchars($jurusan); ?></td>
                         </tr>
                         <tr>
                             <th scope="row">Prodi</th>
                             <td><?php echo htmlspecialchars($prodi); ?></td>
                         </tr>
                         <tr>
-                            <th scope="row">Tahun Masuk</th>
-                            <td><?php echo htmlspecialchars($tahun_masuk); ?></td>
+                            <th scope="row">Nomor handphone</th>
+                            <td><?php echo htmlspecialchars($no_telp); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tahun Lulus</th>
+                            <td><?php echo htmlspecialchars($tahun_lulus); ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            <?php elseif ($role === 'industri') : ?>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Nama</th>
+                            <td><?php echo htmlspecialchars($nama); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Jabatan</th>
+                            <td><?php echo htmlspecialchars($jabatan); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Perusahaan</th>
+                            <td><?php echo htmlspecialchars($perusahaan); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td><?php echo htmlspecialchars($email); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Kota</th>
+                            <td><?php echo htmlspecialchars($kota); ?></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Nomor handphone</th>
+                            <td><?php echo htmlspecialchars($no_telp); ?></td>
                         </tr>
                     </tbody>
                 </table>

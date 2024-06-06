@@ -19,7 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($password == $row["password"]) { 
             $_SESSION["username"] = $row["username"];
             $role = $row["role"]; 
-            header("Location: user-dashboard.php?username=" . urlencode($username) . "&role=" . urlencode($role));
+            
+            if ($role === "admin") {
+                header("Location: ../admin/admin_overview.php?username=" . urlencode($username) . "&role=" . urlencode($role));
+            } else {
+                header("Location: user-dashboard.php?username=" . urlencode($username) . "&role=" . urlencode($role));
+            }
             exit();
         } else {
             $error = "Password tidak valid.";

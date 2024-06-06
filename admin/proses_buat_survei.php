@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $survey_deskripsi = $_POST['survey_deskripsi'];
     $survey_tanggal = $_POST['survey_tanggal'];
     $kategori_id = $_POST['kategori_id'];
-    $user_id = 33; // Misalnya, sesuaikan dengan id admin yang sedang login
+    $user_id = 1; // Misalnya, sesuaikan dengan id admin yang sedang login
     $survey_kode = 'mhs'; // Sesuaikan jika diperlukan
 
     // Masukkan data survei ke dalam tabel m_survey

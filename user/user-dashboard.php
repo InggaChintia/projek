@@ -29,8 +29,6 @@ if (!$username) {
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-}
 $conn->close();
 ?>
 
@@ -231,8 +229,7 @@ $conn->close();
             <h1> </h1>
             <div class="profile">
                 <div class="profile-info">
-                    <!-- Tambahkan tag <a> untuk memindahkan halaman -->
-                    <a href="user-detailakun-mahasiswa.php.php">
+                    <a href="user-detailakun-mahasiswa.php">
                         <span id="profileName" style="color: #f8f9fa;"><?php echo htmlspecialchars($username ?? ''); ?></span>
                     </a>
                     <span> | </span>
@@ -245,30 +242,92 @@ $conn->close();
             <h2>Pilih Survei</h2>
             <hr class="nav-divider">
             <ul class="survey-list">
-                <li class="survey-item">
-                    <i class="bi bi-building survey-item-icon"></i>
-                    <div class="survey-item-content">
-                        <div class="survey-item-title">Survei Fasilitas Polinema</div>
-                        <div class="survey-item-description">Survei mengenai fasilitas kampus Polinema pada tahun 2024</div>
-                    </div>
-                    <a href="user-isisurvei.php" class="survey-item-link">Lakukan Survei</a>
-                </li>
-                <li class="survey-item">
-                    <i class="bi bi-book survey-item-icon"></i>
-                    <div class="survey-item-content">
-                        <div class="survey-item-title">Survei Akademik Polinema</div>
-                        <div class="survey-item-description">Survei mengenai akademik kampus Polinema pada tahun 2024</div>
-                    </div>
-                    <a href="user-isisurvei.php" class="survey-item-link">Lakukan Survei</a>
-                </li>
-                <li class="survey-item">
-                    <i class="bi bi-gear survey-item-icon"></i>
-                    <div class="survey-item-content">
-                        <div class="survey-item-title">Survei Pelayanan Polinema</div>
-                        <div class="survey-item-description">Survei mengenai pelayanan kampus Polinema pada tahun 2024</div>
-                    </div>
-                    <a href="user-isisurvei.php" class="survey-item-link">Lakukan Survei</a>
-                </li>
+                <?php if ($role === 'mahasiswa'): ?>
+                    <li class="survey-item">
+                        <i class="bi bi-building survey-item-icon"></i>
+                        <div class="survey-item-content">
+                            <div class="survey-item-title">Survei Fasilitas Polinema</div>
+                            <div class="survey-item-description">Survei mengenai fasilitas kampus Polinema pada tahun 2024</div>
+                        </div>
+                        <a href="user-isisurvei.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>" class="survey-item-link">Lakukan Survei</a>
+                    </li>
+                    <li class="survey-item">
+                        <i class="bi bi-book survey-item-icon"></i>
+                        <div class="survey-item-content">
+                            <div class="survey-item-title">Survei Akademik Polinema</div>
+                            <div class="survey-item-description">Survei mengenai akademik kampus Polinema pada tahun 2024</div>
+                        </div>
+                        <a href="user-isisurvei.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>" class="survey-item-link">Lakukan Survei</a>
+                    </li>
+                    <li class="survey-item">
+                        <i class="bi bi-gear survey-item-icon"></i>
+                        <div class="survey-item-content">
+                            <div class="survey-item-title">Survei Pelayanan Polinema</div>
+                            <div class="survey-item-description">Survei mengenai pelayanan kampus Polinema pada tahun 2024</div>
+                        </div>
+                        <a href="user-isisurvei.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>" class="survey-item-link">Lakukan Survei</a>
+                    </li>
+                <?php elseif ($role === 'tendik'): ?>
+                    <li class="survey-item">
+                        <i class="bi bi-building survey-item-icon"></i>
+                        <div class="survey-item-content">
+                            <div class="survey-item-title">Survei Fasilitas Polinema</div>
+                            <div class="survey-item-description">Survei mengenai fasilitas kampus Polinema pada tahun 2024</div>
+                        </div>
+                        <a href="user-isisurvei.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>" class="survey-item-link">Lakukan Survei</a>
+                    </li>
+                    <li class="survey-item">
+                        <i class="bi bi-gear survey-item-icon"></i>
+                        <div class="survey-item-content">
+                            <div class="survey-item-title">Survei Pelayanan Polinema</div>
+                            <div class="survey-item-description">Survei mengenai pelayanan kampus Polinema pada tahun 2024</div>
+                        </div>
+                        <a href="user-isisurvei.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>" class="survey-item-link">Lakukan Survei</a>
+                    </li>
+                <?php elseif ($role === 'ortu'): ?>
+                    <li class="survey-item">
+                        <i class="bi bi-gear survey-item-icon"></i>
+                        <div class="survey-item-content">
+                            <div class="survey-item-title">Survei Pelayanan Polinema</div>
+                            <div class="survey-item-description">Survei mengenai pelayanan kampus Polinema pada tahun 2024</div>
+                        </div>
+                        <a href="user-isisurvei.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>" class="survey-item-link">Lakukan Survei</a>
+                    </li>
+                <?php elseif ($role === 'alumni'): ?>
+                    <li class="survey-item">
+                        <i class="bi bi-people survey-item-icon"></i>
+                        <div class="survey-item-content">
+                            <div class="survey-item-title">Survei Alumni Polinema</div>
+                            <div class="survey-item-description">Survei mengenai pengalaman alumni kampus Polinema pada tahun 2024</div>
+                        </div>
+                        <a href="user-isisurvei.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>" class="survey-item-link">Lakukan Survei</a>
+                    </li>
+                    <li class="survey-item">
+                        <i class="bi bi-gear survey-item-icon"></i>
+                        <div class="survey-item-content">
+                            <div class="survey-item-title">Survei Pelayanan Polinema</div>
+                            <div class="survey-item-description">Survei mengenai pelayanan kampus Polinema pada tahun 2024</div>
+                        </div>
+                        <a href="user-isisurvei.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>" class="survey-item-link">Lakukan Survei</a>
+                    </li>
+                <?php elseif ($role === 'industri'): ?>
+                    <li class="survey-item">
+                        <i class="bi bi-people survey-item-icon"></i>
+                        <div class="survey-item-content">
+                            <div class="survey-item-title">Survei Alumni Polinema</div>
+                            <div class="survey-item-description">Survei mengenai pengalaman industri dengan alumni kampus Polinema pada tahun 2024</div>
+                        </div>
+                        <a href="user-isisurvei.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>" class="survey-item-link">Lakukan Survei</a>
+                    </li>
+                    <li class="survey-item">
+                        <i class="bi bi-gear survey-item-icon"></i>
+                        <div class="survey-item-content">
+                            <div class="survey-item-title">Survei Pelayanan Polinema</div>
+                            <div class="survey-item-description">Survei mengenai pelayanan kampus Polinema pada tahun 2024</div>
+                        </div>
+                        <a href="user-isisurvei.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>" class="survey-item-link">Lakukan Survei</a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

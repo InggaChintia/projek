@@ -295,7 +295,7 @@
             <a class="nav-link" href="admin_datasurvei_dashboard.php"><img src="aset/data.png" alt="Data Survei Icon">Data Survei</a>
             <a class="nav-link active" href="admin_survei.php"><img src="aset/survei.png" alt="Survei Icon">Survei</a>
         </nav>
-        <a class="nav-link logout" href="#"><img src="aset/logout.png" alt="Logout Icon">Logout</a>
+        <a class="nav-link logout" href="../user/user_registrasi.php"><img src="aset/logout.png" alt="Logout Icon">Logout</a>
     </div>
     <div class="content">
         <div class="content-header">
@@ -425,6 +425,58 @@
 
                             <label for="jenis_soal_6">Jenis Pertanyaan 6:</label><br>
                             <select id="jenis_soal_6" name="jenis_soal_6" required>
+                                <option value="skala">Skala</option>
+                                <option value="isian">Isian</option>
+                                <option value="y/n">Ya/Tidak</option>
+                            </select><br><br>
+
+                            <label for="survey_deskripsi">Nomor Urut:</label><br>
+                            <input type="text" id="nomor_urut_7" name="nomor_urut_7" required><br><br>
+
+                            <label for="soal_7">Pertanyaan 7:</label><br>
+                            <input type="text" id="soal_7" name="soal_7" required><br><br>
+
+                            <label for="jenis_soal_7">Jenis Pertanyaan 7:</label><br>
+                            <select id="jenis_soal_7" name="jenis_soal_7" required>
+                                <option value="skala">Skala</option>
+                                <option value="isian">Isian</option>
+                                <option value="y/n">Ya/Tidak</option>
+                            </select><br><br>
+
+                            <label for="survey_deskripsi">Nomor Urut:</label><br>
+                            <input type="text" id="nomor_urut_8" name="nomor_urut_8" required><br><br>
+
+                            <label for="soal_8">Pertanyaan 8:</label><br>
+                            <input type="text" id="soal_8" name="soal_8" required><br><br>
+
+                            <label for="jenis_soal_8">Jenis Pertanyaan 8:</label><br>
+                            <select id="jenis_soal_8" name="jenis_soal_8" required>
+                                <option value="skala">Skala</option>
+                                <option value="isian">Isian</option>
+                                <option value="y/n">Ya/Tidak</option>
+                            </select><br><br>
+
+                            <label for="survey_deskripsi">Nomor Urut:</label><br>
+                            <input type="text" id="nomor_urut_9" name="nomor_urut_9" required><br><br>
+
+                            <label for="soal_9">Pertanyaan 9:</label><br>
+                            <input type="text" id="soal_9" name="soal_9" required><br><br>
+
+                            <label for="jenis_soal_9">Jenis Pertanyaan 9:</label><br>
+                            <select id="jenis_soal_9" name="jenis_soal_9" required>
+                                <option value="skala">Skala</option>
+                                <option value="isian">Isian</option>
+                                <option value="y/n">Ya/Tidak</option>
+                            </select><br><br>
+
+                            <label for="survey_deskripsi">Nomor Urut:</label><br>
+                            <input type="text" id="nomor_urut_10" name="nomor_urut_10" required><br><br>
+
+                            <label for="soal_10">Pertanyaan 10:</label><br>
+                            <input type="text" id="soal_10" name="soal_10" required><br><br>
+
+                            <label for="jenis_soal_10">Jenis Pertanyaan 10:</label><br>
+                            <select id="jenis_soal_10" name="jenis_soal_10" required>
                                 <option value="skala">Skala</option>
                                 <option value="isian">Isian</option>
                                 <option value="y/n">Ya/Tidak</option>

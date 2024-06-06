@@ -171,7 +171,7 @@
             <a class="nav-link" href="admin_datasurvei.html"><img src="aset/data.png" alt="Data Survei Icon">Data Survei</a>
             <a class="nav-link" href="admin_survei.html"><img src="aset/survei.png" alt="Survei Icon">Survei</a>
         </nav>
-        <a class="nav-link logout" href="#"><img src="aset/logout.png" alt="Logout Icon">Logout</a>
+        <a class="nav-link logout" href="../user/user_registrasi.php"><img src="aset/logout.png" alt="Logout Icon">Logout</a>
     </div>
     <div class="content">
         <div class="content-header">

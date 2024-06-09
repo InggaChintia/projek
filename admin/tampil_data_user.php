@@ -30,7 +30,6 @@ if (isset($_POST['role'])) {
     } else {
         echo "<tr><td colspan='2'>Tidak ada data ditemukan</td></tr>";
     }
-
     $stmt->close();
     $conn->close();
 }

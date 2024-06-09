@@ -103,6 +103,8 @@
         .table-responsive {
             margin-top: 20px;
             margin-left: 20px;
+            margin-right: 50px;
+            width: 1400px;
         }
         .table th, .table td {
             text-align: left;
@@ -141,15 +143,6 @@
             background-color: #304C65;
             color: white;
             border-radius: 20px;
-        }
-        .table .dropdown-menu {
-            min-width: 100px;
-        }
-        .table .profile-pic {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
         }
         .table .user-info {
             display: flex;
@@ -269,7 +262,7 @@
             $('#role').on('change', function(){
                 var selectedRole = $(this).val();
                 
-                // Debugging - Tampilkan nilai role yang dipilih
+                // Tampilkan nilai role yang dipilih
                 console.log("Role yang dipilih: " + selectedRole);
 
                 $.ajax({

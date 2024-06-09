@@ -125,24 +125,48 @@
             font-weight: bold;
             font-size: 14px;
         }
+
         .filter-section .filter-group {
             margin-bottom: 20px;
             font-size: 14px;
         }
+
         .filter-section .filter-group select {
             width: 150px;
             padding: 10px;
             border-radius: 20px;
             border: 1px solid #ccc;
         }
+
         .table-responsive {
             margin-top: 20px;
             margin-left: 20px;
+            margin-right: 50px;
+            width: 1400px;
         }
+
         .table th,
         .table td {
             text-align: left;
+            padding: 12px;
+            vertical-align: middle;
+            margin-right: 20px;
         }
+
+        .table thead th {
+            background-color: #304C65;
+            color: white;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
         .btn-add {
             display: inline-block;
             padding: 10px 20px;
@@ -153,10 +177,12 @@
             text-decoration: none;
             font-size: 14px;
         }
+
         .btn-add:hover {
             background-color: #273c4e;
             color: white;
         }
+
         .search-bar {
             display: flex;
             justify-content: space-between;
@@ -164,52 +190,52 @@
             margin-bottom: 10px;
             margin-left: 20px;
         }
-        .table-responsive {
-            margin-top: 20px;
-            margin-left: 20px;
-        }
-        .table th,
-        .table td {
-            text-align: left;
-        }
+
         .table .dropdown-menu {
             min-width: 100px;
         }
+
         .modal-content {
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             width: 700px;
-            margin: 0 auto; /* Mengatur margin menjadi auto untuk membuat elemen berada di tengah */
+            margin: 0 auto;
         }
 
         .modal-header {
             border-bottom: none;
             padding-bottom: 0;
         }
+
         .modal-header h5 {
             font-weight: bold;
             font-size: 1.5rem;
         }
+
         .modal-body {
             padding: 20px;
         }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         .form-control {
             border-radius: 20px;
             padding: 10px;
             width: 100%;
             border: 1px solid #ccc;
         }
+
         .btn-primary {
             background-color: #304C65;
             border: none;
             border-radius: 20px;
             padding: 10px 20px;
         }
+
         .btn-secondary {
             background-color: #273c4e;
             border: none;
@@ -217,21 +243,22 @@
             padding: 5px 10px;
             font-size: 14px;
         }
+
         .search-bar input[type="text"] {
-            
-            flex: 1; /* Menggunakan fleksibilitas untuk menyesuaikan ukuran */
+            flex: 1;
             border-radius: 10px;
             min-width: 50px;
             margin-right: 800px;
             padding: 8px 12px;
         }
+
         .search-bar button {
             padding: 8px 12px;
-            border: none; 
+            border: none;
             background-color: #304C65;
             color: white;
             border-radius: 10px;
-            min-width: 50px; /* Menetapkan lebar minimum untuk tombol */
+            min-width: 50px;
             margin-right: 200px;
             margin-top: 20px;
         }
@@ -240,6 +267,7 @@
         label {
             font-weight: bold;
         }
+
         input[type="text"],
         input[type="date"],
         select,
@@ -251,6 +279,7 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         select {
             appearance: none;
             -webkit-appearance: none;
@@ -260,6 +289,7 @@
             background-position: right 10px center;
             background-size: 20px;
         }
+
         input[type="submit"] {
             background-color: #007bff;
             color: #fff;
@@ -269,8 +299,40 @@
             cursor: pointer;
             font-size: 16px;
         }
+
         input[type="submit"]:hover {
             background-color: #0056b3;
+        }
+        /* CSS untuk tombol Edit dan Delete */
+        .table .btn-edit,
+        .table .btn-delete {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 2px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .table .btn-edit {
+            background-color: #007bff;
+        }
+
+        .table .btn-edit:hover {
+            background-color: #0056b3;
+        }
+
+        .table .btn-delete {
+            background-color: #dc3545;
+        }
+
+        .table .btn-delete:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
@@ -507,9 +569,9 @@
                     echo '<td>' . htmlspecialchars($row['survey_jenis']) . '</td>';
                     echo '<td>' . htmlspecialchars($row['survey_nama']) . '</td>';
                     echo '<td>';
-                    echo '<a href="edit_survei.php?id=' . $row['survey_id'] . '">Edit</a>'; 
+                    echo '<a href="edit_survei.php?id=' . $row['survey_id'] . '" class="btn-edit">Edit</a>'; 
                     echo ' | ';
-                    echo '<a href="delete_survei.php?id=' . $row['survey_id'] . '" onclick="return confirm(\'Anda yakin ingin menghapus survei ini?\')">Delete</a>'; 
+                    echo '<a href="delete_survei.php?id=' . $row['survey_id'] . '" class="btn-delete" onclick="return confirm(\'Anda yakin ingin menghapus survei ini?\')">Delete</a>'; 
                     echo '</td>';
                     echo '</tr>';
                 }

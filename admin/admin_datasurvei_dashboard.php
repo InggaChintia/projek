@@ -77,12 +77,8 @@
             display: flex;
             align-items: center;
             font-size: 14px;
-        }
-        .content-header .profile img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
         .survey-content {
             padding: 20px;
@@ -172,8 +168,7 @@
         <div class="content-header">
             <h1>  </h1>
             <div class="profile">
-                <a class="nav-link" href="admin_profile.html"><img src="aset/profil.jpg" alt="Profile Picture">
-                <span>Admin</span></a>
+                <a class="nav-link" href="admin_profile.html"><span>Admin</span></a>
             </div>
         </div>
         <div class="survey-content">

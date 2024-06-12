@@ -1,18 +1,22 @@
 <?php
 require_once 'koneksi.php';
 
-// Query to fetch data from t_responden_mahasiswa, m_survey, and t_jawaban_mahasiswa
+// Updated query to fetch and aggregate data
 $sql = "SELECT 
             r.responden_nama, 
             s.survey_nama, 
             r.responden_tanggal, 
-            j.jawaban
+            SUM(j.jawaban) as total_points
         FROM 
             t_responden_mahasiswa r
         JOIN 
             m_survey s ON r.survey_id = s.survey_id
         JOIN 
-            t_jawaban_mahasiswa j ON r.responden_mahasiswa_id = j.responden_mahasiswa_id";
+            t_jawaban_mahasiswa j ON r.responden_mahasiswa_id = j.responden_mahasiswa_id
+        GROUP BY 
+            r.responden_nama, 
+            s.survey_nama, 
+            r.responden_tanggal";
 
 $result = $conn->query($sql);
 ?>
@@ -20,6 +24,7 @@ $result = $conn->query($sql);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,6 +36,7 @@ $result = $conn->query($sql);
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
         }
+
         .navbar-vertical {
             background-color: #f0f2f5;
             color: #304C65;
@@ -39,11 +45,13 @@ $result = $conn->query($sql);
             position: fixed;
             width: 250px;
         }
+
         .navbar-vertical img {
             width: 45px;
             margin-bottom: 15px;
             margin-top: -10px;
         }
+
         .navbar-vertical .nav-link img {
             width: 20px;
             height: 20px;
@@ -51,6 +59,7 @@ $result = $conn->query($sql);
             padding: 3px;
             margin-right: 10px;
         }
+
         .navbar-vertical p {
             margin: 0;
             font-weight: bold;
@@ -60,6 +69,7 @@ $result = $conn->query($sql);
             margin-left: 54px;
             font-size: 20px;
         }
+
         .navbar-vertical .nav-link {
             color: #304C65;
             font-weight: 700;
@@ -68,21 +78,26 @@ $result = $conn->query($sql);
             border-radius: 5px;
             font-size: 14px;
         }
+
         .navbar-vertical .nav-link:hover {
             background-color: #e0e0e0;
         }
+
         .navbar-vertical .nav-link.active {
             background-color: #e0e0e0;
         }
+
         .navbar-vertical .logout {
             position: absolute;
             bottom: 20px;
             left: 20px;
         }
+
         .content {
             margin-left: 240px;
             padding: 0px;
         }
+
         .content-header {
             display: flex;
             justify-content: space-between;
@@ -95,12 +110,8 @@ $result = $conn->query($sql);
             display: flex;
             align-items: center;
             font-size: 14px;
-        }
-        .content-header .profile img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
         .survey-content {
             padding: 20px;
@@ -108,25 +119,54 @@ $result = $conn->query($sql);
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .survey-content h2 {
             margin-bottom: 20px;
             margin-left: 20px;
             font-weight: bold;
             font-size: 20px;
         }
+
         .nav-divider {
             border: none;
-            height: 2px; 
-            background-color: #304C65; 
+            height: 2px;
+            background-color: #304C65;
             margin: 10px 0;
         }
+
         .table-responsive {
             margin-top: 20px;
             margin-left: 20px;
+            margin-right: 50px;
+            width: 1400px;
         }
-        .table th, .table td {
+
+        /* Styling untuk tabel */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        .table th,
+        .table td {
             text-align: left;
+            padding: 12px;
             vertical-align: middle;
+            margin-right: 20px;
+        }
+        .table thead th {
+            background-color: #304C65;
+            color: white;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
         }
         .btn-add {
             display: inline-block;
@@ -138,10 +178,12 @@ $result = $conn->query($sql);
             text-decoration: none;
             font-size: 14px;
         }
+
         .btn-add:hover {
             background-color: #273c4e;
             color: white;
         }
+
         .search-bar {
             display: flex;
             justify-content: space-between;
@@ -149,12 +191,14 @@ $result = $conn->query($sql);
             margin-bottom: 10px;
             margin-left: 20px;
         }
+
         .search-bar input {
             padding: 8px 12px;
             border-radius: 10px;
             border: 1px solid #ccc;
             width: 300px;
         }
+
         .search-bar button {
             padding: 8px 12px;
             border: none;
@@ -162,22 +206,27 @@ $result = $conn->query($sql);
             color: white;
             border-radius: 20px;
         }
+
         .table .dropdown-menu {
             min-width: 100px;
         }
+
         .table .profile-pic {
             width: 30px;
             height: 30px;
             border-radius: 50%;
             margin-right: 10px;
         }
+
         .table .user-info {
             display: flex;
             align-items: center;
         }
+
         .table .user-info span {
             margin-left: 10px;
         }
+
         .survey-content button {
             background-color: #007bff;
             color: #fff;
@@ -193,23 +242,6 @@ $result = $conn->query($sql);
     </style>
 </head>
 <body>
-    <?php
-        if ($result->num_rows > 0) {
-        // output data of each row
-            while($row = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>" . $row["responden_nama"] . "</td>";
-                echo "<td>" . $row["survey_nama"] . "</td>";
-                echo "<td>Mahasiswa</td>"; // Assuming all respondents are students, adjust as needed
-                echo "<td>" . $row["responden_tanggal"] . "</td>";
-                echo "<td>" . $row["jawaban_poin"] . "</td>";
-                echo "</tr>";
-            }
-        } else {
-            echo "<tr><td colspan='6'>No data found</td></tr>";
-        }
-        $conn->close();
-    ?>
     <div class="navbar-vertical">
         <img src="aset/logopolinema.png" alt="Polinema Logo">
         <p>Survei Polinema</p>
@@ -217,17 +249,16 @@ $result = $conn->query($sql);
         <nav class="nav flex-column mt-4">
             <a class="nav-link" href="admin_overview.php"><img src="aset/overview.png" alt="Overview Icon">Overview</a>
             <a class="nav-link" href="admin_user.php"><img src="aset/users.png" alt="User Icon">User</a>
-            <a class="nav-link active" href="admin_datasurvei.php"><img src="aset/data.png" alt="Data Survei Icon">Data Survei</a>
+            <a class="nav-link active" href="admin_datasurvei_dashboard.php"><img src="aset/data.png" alt="Data Survei Icon">Data Survei</a>
             <a class="nav-link" href="admin_survei.php"><img src="aset/survei.png" alt="Survei Icon">Survei</a>
         </nav>
         <a class="nav-link logout" href="../user/user_registrasi.php"><img src="aset/logout.png" alt="Logout Icon">Logout</a>
     </div>
     <div class="content">
         <div class="content-header">
-            <h1>  </h1>
+            <h1></h1>
             <div class="profile">
-                <a class="nav-link" href="admin_profile.html"><img src="aset/profil.jpg" alt="Profile Picture">
-                    <span>Admin</span></a>
+                <a class="nav-link" href="admin_profile.html"><span>Admin</span></a>
             </div>
         </div>
         <div class="survey-content">
@@ -236,59 +267,46 @@ $result = $conn->query($sql);
             <div class="search-bar">
                 <input type="text" placeholder="Cari">
             </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Nama Survei</th>
-                            <th>Keterangan</th>
-                            <th>Tanggal</th>
-                            <th>Poin</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td>Survey Fasilitas Mahasiswa 2024</td>
-                            <td>Mahasiswa</td>
-                            <td>25-11-2024</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Survey Fasilitas Dosen 2024</td>
-                            <td>Dosen</td>
-                            <td>25-11-2024</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Survey Akademik Mahasiswa 2024</td>
-                            <td>Mahasiswa</td>
-                            <td>25-11-2024</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Survey Pelayanan Mahasiswa 2024</td>
-                            <td>Mahasiswa</td>
-                            <td>25-11-2024</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Survey Akademik Dosen 2024</td>
-                            <td>Dosen</td>
-                            <td>25-11-2024</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <button onclick="history.back()">Kembali</button>
-        </div> 
+
+            <?php if (empty($result)) : ?>
+                <div>
+                    <h3>Survei belum diisi, Hubungi admin</h3>
+                </div>
+            <?php else : ?>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Nama Survei</th>
+                                <th>Keterangan</th>
+                                <th>Tanggal</th>
+                                <th>Total Poin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row["responden_nama"] . "</td>";
+                                    echo "<td>" . $row["survey_nama"] . "</td>";
+                                    echo "<td>Mahasiswa</td>";
+                                    echo "<td>" . $row["responden_tanggal"] . "</td>";
+                                    echo "<td>" . $row["total_points"] . "</td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='5'>No data found</td></tr>";
+                            }
+                            $conn->close();
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <button onclick="history.back()">Kembali</button>
+            <?php endif; ?>
+        </div>
     </div>
 </body>
 </html>

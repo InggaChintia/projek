@@ -18,6 +18,7 @@
             padding: 20px;
             position: fixed;
             width: 250px;
+            font-weight: bold;
         }
         .navbar-vertical img {
             width: 45px;
@@ -42,7 +43,7 @@
         }
         .navbar-vertical .nav-link {
             color: #304C65;
-            font-weight: 700;
+            font-weight: 700px;
             padding: 0px;
             display: block;
             border-radius: 5px;
@@ -75,12 +76,8 @@
             display: flex;
             align-items: center;
             font-size: 14px;
-        }
-        .content-header .profile img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
         .survey-content {
             padding: 20px;
@@ -104,12 +101,48 @@
             margin-top: 20px;
             margin-left: 20px;
             margin-right: 50px;
-            width: 1400px;
+        }
+        /* Styling untuk tabel */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
         }
         .table th, .table td {
+            padding: 12px 15px;
             text-align: left;
             vertical-align: middle;
+            border-bottom: 1px solid #ddd;
+            max-width: 100%;
         }
+        /* Header tabel */
+        .table thead th {
+            background-color: #304C65;
+            color: white;
+            letter-spacing: 0.1em;
+            font-size: 14px;
+            padding: 15px;
+            width: 800px;
+        }
+        /* Ukuran kolom header */
+        .table thead th:first-child {
+            width: 50%;
+        }
+
+        .table thead th:nth-child(2) {
+            width: 50%;
+        }
+
+        /* Body tabel */
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Hover efek pada baris tabel */
+        .table tbody tr:hover {
+            background-color: #e0e0e0;
+        }
+        /* Tombol */
         .btn-add {
             display: inline-block;
             padding: 10px 20px;
@@ -124,6 +157,7 @@
             background-color: #273c4e;
             color: white;
         }
+        /* Bar pencarian */
         .search-bar {
             display: flex;
             justify-content: space-between;
@@ -144,6 +178,7 @@
             color: white;
             border-radius: 20px;
         }
+        /* Informasi pengguna dalam tabel */
         .table .user-info {
             display: flex;
             align-items: center;
@@ -151,12 +186,13 @@
         .table .user-info span {
             margin-left: 10px;
         }
+        /* Bagian filter */
         .filter-section {
-            padding: 10px;
+            padding: 20px;
             background-color: #fff;
             border-radius: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
+            margin-top: 20px;
         }
         .filter-section h3 {
             margin-top: 10px;
@@ -182,7 +218,7 @@
     </style>
 </head>
 <body>
-    <div class="navbar-vertical">
+<div class="navbar-vertical">
         <img src="aset/logopolinema.png" alt="Polinema Logo">
         <p>Survei Polinema</p>
         <hr class="nav-divider">
@@ -198,8 +234,7 @@
         <div class="content-header">
             <h1>  </h1>
             <div class="profile">
-                <a class="nav-link" href="admin_profile.html"><img src="aset/profil.jpg" alt="Profile Picture">
-                    <span>Admin</span></a>
+                <a class="nav-link" href="admin_profile.html"><span>Admin</span></a>
             </div>
         </div>
         <div class="survey-content">
@@ -212,12 +247,12 @@
                     <label for="role">Role:</label>
                     <select id="role" name="role">
                         <option value="" disabled selected>Pilih</option>
-                        <option value="guest">Mahasiswa</option>
-                        <option value="admin">Dosen</option>
-                        <option value="user">Tendik</option>
-                        <option value="guest">Alumni</option>
-                        <option value="guest">OrangTua/Wali Mahasiswa</option>
-                        <option value="guest">Industri</option>
+                        <option value="mahasiswa">Mahasiswa</option>
+                        <option value="Dosen">Dosen</option>
+                        <option value="Tendik">Tendik</option>
+                        <option value="Alumni">Alumni</option>
+                        <option value="ortu">OrangTua/Wali Mahasiswa</option>
+                        <option value="Industri">Industri</option>
                     </select>
                 </div>
             </div>
@@ -235,7 +270,7 @@
                         require_once 'koneksi.php';
 
                         // Query untuk mengambil data dari m_user_data
-                        $query = "SELECT nama, role FROM m_user_data";
+                        $query = "SELECT nama, role FROM m_user_data WHERE role= role";
                         $result = $conn->query($query);
 
                         if ($result->num_rows > 0) {

@@ -1,3 +1,27 @@
+<?php
+include 'koneksi.php';
+$sql = "SELECT kategori_id, AVG(average_jawaban) AS avg_jawaban FROM average_jawaban_per_kategori_4 GROUP BY kategori_id";
+$result = $conn->query($sql);
+
+$poinKategori = [];
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $poinKategori[] = $row;
+    }
+} else {
+    echo "0 results";
+}
+function getKategoriName($kategori_id) {
+    $kategoriNames = [
+        1 => 'Fasilitas',
+        2 => 'Akademik',
+        3 => 'Pelayanan',
+        4 => 'Alumni'
+    ];
+    return isset($kategoriNames[$kategori_id]) ? $kategoriNames[$kategori_id] : 'Unknown';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,6 +99,8 @@
             display: flex;
             align-items: center;
             font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
         .content-header .profile img {
             width: 30px;
@@ -100,65 +126,33 @@
             background-color: #304C65; 
             margin: 10px 0;
         }
-        .table-responsive {
-            margin-top: 20px;
-            margin-left: 20px;
+        .table-container, .table-priority, .table-rank-per-kategori {
+            width: 48%;
+            margin-bottom: 50px;
         }
-        .table th, .table td {
+        .table-container table, .table-priority table, .table-rank-per-kategori table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-container th, .table-container td, .table-priority th, .table-priority td, .table-rank-per-kategori th, .table-rank-per-kategori td {
+            border: 1px solid #ddd;
+            padding: 5px;
             text-align: left;
             vertical-align: middle;
+            margin-right: 20px;
         }
-        .btn-add {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-bottom: 10px;
-            background-color: #304C65;
-            color: white;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 14px;
+        .table-container th, .table-priority th, .table-rank-per-kategori th {
+            background-color: #f2f2f2;
         }
-        .btn-add:hover {
-            background-color: #273c4e;
-            color: white;
-        }
-        .search-bar {
+        .tables-wrapper {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            margin-left: 20px;
-        }
-        .search-bar input {
-            padding: 8px 12px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-            width: 300px;
-        }
-        .search-bar button {
-            padding: 8px 12px;
-            border: none;
-            background-color: #304C65;
-            color: white;
-            border-radius: 20px;
-        }
-        .table .dropdown-menu {
-            min-width: 100px;
-        }
-        .table .profile-pic {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        .table .user-info {
-            display: flex;
-            align-items: center;
-        }
-        .table .user-info span {
-            margin-left: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="navbar-vertical">
@@ -166,9 +160,9 @@
         <p>Survei Polinema</p>
         <hr class="nav-divider">
         <nav class="nav flex-column mt-4">
-            <a class="nav-link" href="admin_overview.php"><img src="aset/overview.png" alt="Overview Icon">Overview</a>
+            <a class="nav-link active" href="#"><img src="aset/overview.png" alt="Overview Icon">Overview</a>
             <a class="nav-link" href="admin_user.php"><img src="aset/users.png" alt="User Icon">User</a>
-            <a class="nav-link active" href="admin_datasurvei_dashboard.php"><img src="aset/data.png" alt="Data Survei Icon">Data Survei</a>
+            <a class="nav-link" href="admin_datasurvei_dashboard.php"><img src="aset/data.png" alt="Data Survei Icon">Data Survei</a>
             <a class="nav-link" href="admin_survei.php"><img src="aset/survei.png" alt="Survei Icon">Survei</a>
         </nav>
         <a class="nav-link logout" href="../user/user_registrasi.php"><img src="aset/logout.png" alt="Logout Icon">Logout</a>
@@ -177,62 +171,65 @@
         <div class="content-header">
             <h1>  </h1>
             <div class="profile">
-                <a class="nav-link" href="admin_profile.html"><img src="aset/profil.jpg" alt="Profile Picture">
-                    <span>Admin</span></a>
+                <a class="nav-link" href="#">
+                <span>Admin</span></a>
             </div>
         </div>
         <div class="survey-content">
-            <h2>Data Pengguna yang sudah mengisi survei</h2>
+            <h2>Overview</h2>
             <hr class="nav-divider">
-            <div class="search-bar">
-                <input type="text" placeholder="Cari">
+
+            <!-- Wrapper untuk dua tabel -->
+            <div class="tables-wrapper">
+                <!-- Tabel Poin Kategori -->
+                <div class="table-container">
+                   
+            <h3>Poin Kategori</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kategori</th>
+                        <th>Average Jawaban</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($poinKategori as $kategori): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars(getKategoriName($kategori['kategori_id'])); ?></td>
+                        <td><?php echo htmlspecialchars($kategori['avg_jawaban']); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+            <!-- Tabel Urutan Prioritas -->
+            <div class="table-priority">
+            <h3>Urutan Prioritas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Kategori</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                // Sort the categories by average score in ascending order
+                    usort($poinKategori, function($a, $b) {
+                        return $a['avg_jawaban'] <=> $b['avg_jawaban'];
+                    });
+                    foreach ($poinKategori as $index => $kategori): ?>
+                    <tr>
+                    <td><?php echo ($index + 1) . '.'; ?></td>
+                    <td><?php echo htmlspecialchars(getKategoriName($kategori['kategori_id'])); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
             </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Jenis Survei</th>
-                            <th>Nama Survei</th>
-                            <th>Tanggal</th>
-                            <th>Poin</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Mahasiswa</td>
-                            <td></td>
-                            <td>25-11-2024</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Dosen</td>
-                            <td></td>
-                            <td>25-11-2024</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Mahasiswa</td>
-                            <td></td>
-                            <td>25-11-2024</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Mahasiswa</td>
-                            <td></td>
-                            <td>25-11-2024</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Dosen</td>
-                            <td></td>
-                            <td>25-11-2024</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div> 
+        </div>
     </div>
 </body>
 </html>

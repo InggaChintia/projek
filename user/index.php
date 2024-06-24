@@ -1,7 +1,6 @@
 <?php
 session_start();
-require_once 'connection.php';
-
+require_once '../admin/koneksi.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
@@ -38,11 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 
-
-
-if (isset($error)) {
-    echo "<p>$error</p>";
-}
 ob_end_flush();
 ?>
 
@@ -106,10 +100,13 @@ ob_end_flush();
                                         <label class="custom-control-label" for="remember">Ingat Saya</label>
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-left">
-                                    <button type="submit" class="btn btn-user btn-block mt-3" style="width: 90px; background-color: #304C65; color: white; text-align: center; text-decoration: none;">
-                                        Masuk
-                                    </button>
+                                <div class="d-flex align-items-center" style="padding-left: 130px; padding-top: 80px;">
+                                    <button type="submit" value="register" class="btn btn-user btn-block mt-3" style="width: 90px; background-color: #304C65; color: white; text-align: center; text-decoration: none;">
+                                        Lanjut</button>
+                                </div>
+                                <div class="d-flex align-items-center" style="padding-left: 130px; padding-top: 30px;">
+                                    <a href="user_registrasi.php" class="btn btn-user btn-block" style="width: 90px; background-color: #304C65; color: white; text-align: center; text-decoration: none;">
+                                        Daftar</a>
                                 </div>
                             </form>
                         </div>
@@ -118,6 +115,61 @@ ob_end_flush();
             </div>
         </div>
     </div>
+
+    <!-- Error Modal: Username Tidak Terdaftar -->
+    <div class="modal fade" id="usernameNotFoundModal" tabindex="-1" role="dialog" aria-labelledby="usernameNotFoundModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="usernameNotFoundModalLabel">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Username atau Password Anda salah.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal: Password Salah -->
+    <div class="modal fade" id="wrongPasswordModal" tabindex="-1" role="dialog" aria-labelledby="wrongPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="wrongPasswordModalLabel">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Password tidak valid.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            <?php if ($error == "Username tidak ditemukan."): ?>
+                console.log("Username tidak ditemukan modal dipanggil");
+                $('#usernameNotFoundModal').modal('show');
+            <?php elseif ($error == "Password tidak valid."): ?>
+                console.log("Password tidak valid modal dipanggil");
+                $('#wrongPasswordModal').modal('show');
+            <?php endif; ?>
+        });
+    </script>
 
 </body>
 

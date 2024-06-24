@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'connection.php'; // Pastikan ini adalah file koneksi yang benar
+require_once '../admin/koneksi.php'; // Pastikan ini adalah file koneksi yang benar
 
 if (!isset($_GET['username']) || !isset($_GET['role'])) {
     die("Invalid access. Username or role not provided.");
@@ -291,11 +291,11 @@ $conn->close();
             <a class="nav-link" href="user-dashboard.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>">
                 <i class="bi bi-speedometer2"></i> Overview
             </a>
-            <a class="nav-link active" href="user-detailakun-mahasiswa.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>">
+            <a class="nav-link active" href="user-detailakun.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>">
                 <i class="bi bi-person"></i> User
             </a>
         </nav>
-        <a class="nav-link logout" href="user-login.php">
+        <a class="nav-link logout" href="index.php">
             <i class="bi bi-box-arrow-right"></i> Logout
         </a>
     </div>
@@ -304,7 +304,7 @@ $conn->close();
             <h1></h1>
             <div class="profile">
                 <div class="profile-info">
-                    <a href="user-detailakun-mahasiswa.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>">
+                    <a href="user-detailakun.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?>">
                         <?php echo htmlspecialchars($username); ?>
                     </a>
                     <span style="margin-left: 10px; margin-right: 10px"> | </span>
@@ -486,7 +486,7 @@ $conn->close();
                 </table>
             <?php endif; ?>
             <div class="upload-section">
-                <button class="change-password" onclick="window.location.href='user-detailakun-gantipass.php'">Ganti password</button>
+                <button class="change-password" onclick="window.location.href='user-detailakun-gantipass.php?username=<?php echo urlencode($username); ?>&role=<?php echo urlencode($role); ?> '">Ganti password</button>
             </div>
         </div>
     </div>

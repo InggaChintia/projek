@@ -1,7 +1,7 @@
 <?php
 // Mulai session pada halaman awal
 session_start();
-require_once 'connection.php'; // Pastikan ini adalah file koneksi yang benar
+require_once '../admin/koneksi.php'; // Pastikan ini adalah file koneksi yang benar
 
 // Ambil role dari session
 if (!isset($_SESSION['role']) || !isset($_SESSION['user_id'])) {

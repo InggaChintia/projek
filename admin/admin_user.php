@@ -1,9 +1,25 @@
+<?php
+require_once 'koneksi.php';
+
+// Tentukan default query
+$sql = "SELECT * FROM m_user";
+// Tambahkan filter berdasarkan role jika dipilih
+if (isset($_GET['role']) && !empty($_GET['role'])) {
+    $role = $_GET['role'];
+    $sql .= " WHERE role = '$role'";
+}
+
+$result = $conn->query($sql);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survei Polinema</title>
+    <title>Admin User Management</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -11,6 +27,7 @@
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
         }
+
         .navbar-vertical {
             background-color: #f0f2f5;
             color: #304C65;
@@ -18,13 +35,14 @@
             padding: 20px;
             position: fixed;
             width: 250px;
-            font-weight: bold;
         }
+
         .navbar-vertical img {
             width: 45px;
             margin-bottom: 15px;
             margin-top: -10px;
         }
+
         .navbar-vertical .nav-link img {
             width: 20px;
             height: 20px;
@@ -32,6 +50,7 @@
             padding: 3px;
             margin-right: 10px;
         }
+
         .navbar-vertical p {
             margin: 0;
             font-weight: bold;
@@ -41,29 +60,77 @@
             margin-left: 54px;
             font-size: 20px;
         }
+
         .navbar-vertical .nav-link {
             color: #304C65;
-            font-weight: 700px;
+            font-weight: 700;
             padding: 0px;
             display: block;
             border-radius: 5px;
             font-size: 14px;
         }
+
         .navbar-vertical .nav-link:hover {
             background-color: #e0e0e0;
         }
+
         .navbar-vertical .nav-link.active {
             background-color: #e0e0e0;
         }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            /* z-index: 1000; */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            color: black;
+            text-align: center;
+            width: 390px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .popup-button.confirm {
+            background-color: #203040;
+            color: white;
+        }
+
+        .popup-button.cancel {
+            background-color: grey;
+        }
+
         .navbar-vertical .logout {
             position: absolute;
             bottom: 20px;
             left: 20px;
+            display: flex;
+            align-items: center;
         }
+
         .content {
             margin-left: 240px;
             padding: 0px;
         }
+
         .content-header {
             display: flex;
             justify-content: space-between;
@@ -72,6 +139,7 @@
             padding: 8px 20px;
             color: white;
         }
+
         .content-header .profile {
             display: flex;
             align-items: center;
@@ -79,146 +147,130 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+
         .survey-content {
             padding: 20px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .survey-content h2 {
             margin-bottom: 20px;
             margin-left: 20px;
             font-weight: bold;
             font-size: 20px;
         }
+
         .nav-divider {
             border: none;
-            height: 2px; 
-            background-color: #304C65; 
+            height: 2px;
+            background-color: #304C65;
             margin: 10px 0;
         }
-        .table-responsive {
-            margin-top: 20px;
-            margin-left: 20px;
-            margin-right: 50px;
-        }
-        /* Styling untuk tabel */
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #fff;
-        }
-        .table th, .table td {
-            padding: 12px 15px;
-            text-align: left;
-            vertical-align: middle;
-            border-bottom: 1px solid #ddd;
-            max-width: 100%;
-        }
-        /* Header tabel */
-        .table thead th {
-            background-color: #304C65;
-            color: white;
-            letter-spacing: 0.1em;
-            font-size: 14px;
-            padding: 15px;
-            width: 800px;
-        }
-        /* Ukuran kolom header */
-        .table thead th:first-child {
-            width: 50%;
-        }
 
-        .table thead th:nth-child(2) {
-            width: 50%;
-        }
-
-        /* Body tabel */
-        .table tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        /* Hover efek pada baris tabel */
-        .table tbody tr:hover {
-            background-color: #e0e0e0;
-        }
-        /* Tombol */
-        .btn-add {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-bottom: 10px;
-            background-color: #304C65;
-            color: white;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .btn-add:hover {
-            background-color: #273c4e;
-            color: white;
-        }
-        /* Bar pencarian */
-        .search-bar {
+        .filter-section {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
             margin-left: 20px;
         }
-        .search-bar input {
-            padding: 8px 12px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-            width: 300px;
+
+        .table-responsive {
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 50px;
+            width: 1400px;
         }
-        .search-bar button {
-            padding: 8px 12px;
-            border: none;
+
+        .table th,
+        .table td {
+            text-align: left;
+            padding: 12px;
+            vertical-align: middle;
+            margin-right: 20px;
+        }
+
+        .table thead th {
             background-color: #304C65;
             color: white;
-            border-radius: 20px;
+            border-bottom: 2px solid #dee2e6;
         }
-        /* Informasi pengguna dalam tabel */
-        .table .user-info {
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .detail {
             display: flex;
+            flex-direction: column;
+            margin-left: 50px;
+            margin-top: 30px;
+            justify-content: space-between;
+        }
+
+        .form-section {
+            flex: 2;
+            margin-right: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 50%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .profile-section {
+            flex: 0 0 150px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
         }
-        .table .user-info span {
-            margin-left: 10px;
+
+        .profile-section img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 500px;
+            margin-left: 500px;
+            margin-top: -400px;
         }
-        /* Bagian filter */
-        .filter-section {
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+
+        .profile-section label {
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+            margin-left: 500px;
+            margin-top: -480px;
         }
-        .filter-section h3 {
-            margin-top: 10px;
-            font-size: 20px;
-            font-weight: bold;
-            margin-left: 20px;
-        }
-        .filter-group {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-        }
-        .filter-group label {
-            margin-right: 10px;
-            margin-left: 20px;
-            font-size: 16px;
-        }
-        .filter-group select {
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
+
+        .profile-section a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
-<div class="navbar-vertical">
+    <div class="navbar-vertical">
         <img src="aset/logopolinema.png" alt="Polinema Logo">
         <p>Survei Polinema</p>
         <hr class="nav-divider">
@@ -228,88 +280,142 @@
             <a class="nav-link" href="admin_datasurvei_dashboard.php"><img src="aset/data.png" alt="Data Survei Icon">Data Survei</a>
             <a class="nav-link" href="admin_survei.php"><img src="aset/survei.png" alt="Survei Icon">Survei</a>
         </nav>
-        <a class="nav-link logout" href="../user/user_registrasi.php"><img src="aset/logout.png" alt="Logout Icon">Logout</a>
+
+
+        <a id="logout-link" class="nav-link logout" href="../user/user_registrasi.php">
+            <img src="aset/logout.png" alt="Logout Icon">Logout</a>
+        </a>
+        <div id="logout-popup" class="popup-overlay">
+            <div class="popup-content">
+                <h2>Konfirmasi Logout</h2>
+                <button id="confirm-logout" class="popup-button confirm">Logout</button>
+                <button id="cancel-logout" class="popup-button cancel">Cancel</button>
+            </div>
+        </div>
     </div>
     <div class="content">
         <div class="content-header">
-            <h1>  </h1>
+            <h1> </h1>
             <div class="profile">
-                <a class="nav-link" href="admin_profile.html"><span>Admin</span></a>
+                <a class="nav-link" href="#">
+                    <span>Admin</span></a>
             </div>
         </div>
         <div class="survey-content">
             <h2>Detail Pengguna</h2>
             <hr class="nav-divider">
             <div class="filter-section">
-            <div>
-                <h3>Filter</h3><br>
-                <div class="filter-group">
-                    <label for="role">Role:</label>
-                    <select id="role" name="role">
-                        <option value="" disabled selected>Pilih</option>
-                        <option value="mahasiswa">Mahasiswa</option>
-                        <option value="Dosen">Dosen</option>
-                        <option value="Tendik">Tendik</option>
-                        <option value="Alumni">Alumni</option>
-                        <option value="ortu">OrangTua/Wali Mahasiswa</option>
-                        <option value="Industri">Industri</option>
-                    </select>
-                </div>
+                <form action="" method="GET">
+                    <div class="form-group">
+                        <label for="roleFilter">Filter berdasarkan Role:</label>
+                        <select class="form-control" id="roleFilter" name="role">
+                            <option value="">Semua Role</option>
+                            <option value="mahasiswa">Mahasiswa</option>
+                            <option value="ortu">Orang Tua</option>
+                            <option value="tendik">Tendik</option>
+                            <option value="dosen">Dosen</option>
+                            <option value="alumni">Alumni</option>
+                            <option value="industri">Industri</option>
+                        </select>
+                    </div>
+
+                </form>
             </div>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Nama</th>
-                            <th>Keterangan</th>
-                            <th></th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php
-                        require_once 'koneksi.php';
-
-                        // Query untuk mengambil data dari m_user_data
-                        $query = "SELECT nama, role FROM m_user_data WHERE role= role";
-                        $result = $conn->query($query);
-
+                        <?php
                         if ($result->num_rows > 0) {
-                            while($row = $result->fetch_assoc()) {
+                            while ($row = $result->fetch_assoc()) {
+                                if ($row['role'] == "admin") {
+                                    continue;
+                                }
                                 echo "<tr>";
-                                echo "<td class='user-info'><span>" . $row["nama"] . "</span></td>";
-                                echo "<td>" . $row["role"] . "</td>";
+                                echo "<td>" . $row['username'] . "</td>";
+                                echo "<td>" . $row['role'] . "</td>";
+                                echo "<td>";
+                                echo '<button type="button" class="btn btn-info btn-sm detail-btn" data-id="' . $row['user_id'] . '">Detail</button>';
+                                echo ' | ';
+                                echo '<a href="edit_user.php?user_id=' . $row['user_id'] . '" class="btn btn-primary btn-sm">Edit</a>';
+                                echo ' | ';
+                                echo '<a href="delete_user.php?user_id=' . $row['user_id'] . '" class="btn btn-danger btn-sm"onclick="return confirm(\'Anda yakin ingin menghapus Data ini?\')">Hapus</a>';
+                                echo "</td>";
                                 echo "</tr>";
                             }
                         } else {
-                            echo "<tr><td colspan='2'>Tidak ada data ditemukan</td></tr>";
+                            echo "<tr><td colspan='3'>Tidak ada data pengguna</td></tr>";
                         }
-
-                        $conn->close();
-                    ?>
+                        ?>
                     </tbody>
                 </table>
-            </div>            
+            </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('#role').on('change', function(){
-                var selectedRole = $(this).val();
-                
-                // Tampilkan nilai role yang dipilih
-                console.log("Role yang dipilih: " + selectedRole);
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel">Detail Pengguna</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="detailModalBody">
+                    <!-- Data detail pengguna akan dimuat di sini -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-                $.ajax({
-                    url: 'tampil_data_user.php',
-                    type: 'POST',
-                    data: {role: selectedRole},
-                    success: function(data){
-                        $('tbody').html(data);
-                    }
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '.detail-btn', function() {
+                var userId = $(this).data('id'); // Mengambil 'data-id' dari tombol
+                $('#detailModalBody').load('detail_user.php?user_id=' + userId, function() {
+                    $('#detailModal').modal('show');
                 });
             });
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            $('#roleFilter').change(function() {
+                var role = $(this).val();
+                var url = 'admin_user.php';
+                if (role) {
+                    url += '?role=' + role;
+                }
+                window.location.href = url;
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('logout-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('logout-popup').style.display = 'flex';
+        });
+
+        document.getElementById('cancel-logout').addEventListener('click', function() {
+            document.getElementById('logout-popup').style.display = 'none';
+        });
+
+        document.getElementById('confirm-logout').addEventListener('click', function() {
+            window.location.href = '../user/index.php';
+        });
+    </script>
+
+
 </body>
+
 </html>

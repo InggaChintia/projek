@@ -162,13 +162,13 @@
             <a class="nav-link active" href="admin_datasurvei_dashboard.php"><img src="aset/data.png" alt="Data Survei Icon">Data Survei</a>
             <a class="nav-link" href="admin_survei.php"><img src="aset/survei.png" alt="Survei Icon">Survei</a>
         </nav>
-        <a class="nav-link logout" href="../user/user_registrasi.php"><img src="aset/logout.png" alt="Logout Icon">Logout</a>
+        <a class="nav-link logout" href="../user/index.php"><img src="aset/logout.png" alt="Logout Icon">Logout</a>
     </div>
     <div class="content">
         <div class="content-header">
             <h1>  </h1>
             <div class="profile">
-                <a class="nav-link" href="admin_profile.html"><span>Admin</span></a>
+                <a class="nav-link" href="#"><span>Admin</span></a>
             </div>
         </div>
         <div class="survey-content">
@@ -208,5 +208,19 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('logout-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('logout-popup').style.display = 'flex';
+        });
+
+        document.getElementById('cancel-logout').addEventListener('click', function() {
+            document.getElementById('logout-popup').style.display = 'none';
+        });
+
+        document.getElementById('confirm-logout').addEventListener('click', function() {
+            window.location.href = 'index.php';
+        });
+    </script>x
 </body>
 </html>

@@ -261,7 +261,7 @@ while ($row = mysqli_fetch_assoc($query_data_soal_dan_kategori)) {
         <div class="content-header">
             <h1>  </h1>
             <div class="profile">
-                <a class="nav-link" href="admin_profile.html"><span>Admin</span></a>
+                <a class="nav-link" href="#"><span>Admin</span></a>
             </div>
         </div>
         <div class="survey-content">
@@ -325,9 +325,7 @@ while ($row = mysqli_fetch_assoc($query_data_soal_dan_kategori)) {
                 <?php } ?>
                 </ol>
                 <br>
-                
                 <input type="submit" value="Simpan">
-
                 <button type="back" id="back">kembali</button>
             </form>
 </html>

@@ -3,11 +3,6 @@ session_start();
 
 require_once 'koneksi.php';
 
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: admin_survei.php");
-//     exit();
-// }
-
 if (!isset($_GET['id'])) {
     die("ID survei tidak diberikan.");
 }

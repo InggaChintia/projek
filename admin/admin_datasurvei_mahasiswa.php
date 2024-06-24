@@ -6,21 +6,35 @@ $sql = "SELECT
             r.responden_nama, 
             s.survey_nama, 
             r.responden_tanggal, 
-            SUM(j.jawaban) as total_points
+            SUM(j.jawaban) as total_points,
+            r.responden_mahasiswa_id,
+            r.responden_nim,
+            r.responden_prodi,
+            r.responden_email,
+            r.responden_hp,
+            r.tahun_masuk
         FROM 
             t_responden_mahasiswa r
         JOIN 
-            m_survey s ON r.survey_id = s.survey_id
-        JOIN 
             t_jawaban_mahasiswa j ON r.responden_mahasiswa_id = j.responden_mahasiswa_id
+        JOIN 
+            m_survey_soal ms ON j.soal_id = ms.soal_id
+        JOIN 
+            m_survey s ON ms.survey_id = s.survey_id AND r.survey_id = s.survey_id
         GROUP BY 
+            r.responden_mahasiswa_id, 
+            ms.survey_id, 
             r.responden_nama, 
             s.survey_nama, 
-            r.responden_tanggal";
+            r.responden_tanggal, 
+            r.responden_nim, 
+            r.responden_prodi, 
+            r.responden_email, 
+            r.responden_hp, 
+            r.tahun_masuk";
 
 $result = $conn->query($sql);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +50,6 @@ $result = $conn->query($sql);
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
         }
-
         .navbar-vertical {
             background-color: #f0f2f5;
             color: #304C65;
@@ -45,13 +58,11 @@ $result = $conn->query($sql);
             position: fixed;
             width: 250px;
         }
-
         .navbar-vertical img {
             width: 45px;
             margin-bottom: 15px;
             margin-top: -10px;
         }
-
         .navbar-vertical .nav-link img {
             width: 20px;
             height: 20px;
@@ -59,7 +70,6 @@ $result = $conn->query($sql);
             padding: 3px;
             margin-right: 10px;
         }
-
         .navbar-vertical p {
             margin: 0;
             font-weight: bold;
@@ -69,7 +79,6 @@ $result = $conn->query($sql);
             margin-left: 54px;
             font-size: 20px;
         }
-
         .navbar-vertical .nav-link {
             color: #304C65;
             font-weight: 700;
@@ -78,26 +87,21 @@ $result = $conn->query($sql);
             border-radius: 5px;
             font-size: 14px;
         }
-
         .navbar-vertical .nav-link:hover {
             background-color: #e0e0e0;
         }
-
         .navbar-vertical .nav-link.active {
             background-color: #e0e0e0;
         }
-
         .navbar-vertical .logout {
             position: absolute;
             bottom: 20px;
             left: 20px;
         }
-
         .content {
             margin-left: 240px;
             padding: 0px;
         }
-
         .content-header {
             display: flex;
             justify-content: space-between;
@@ -119,35 +123,29 @@ $result = $conn->query($sql);
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
         .survey-content h2 {
             margin-bottom: 20px;
             margin-left: 20px;
             font-weight: bold;
             font-size: 20px;
         }
-
         .nav-divider {
             border: none;
             height: 2px;
             background-color: #304C65;
             margin: 10px 0;
         }
-
         .table-responsive {
             margin-top: 20px;
             margin-left: 20px;
             margin-right: 50px;
             width: 1400px;
         }
-
-        /* Styling untuk tabel */
         .table {
             width: 100%;
             border-collapse: collapse;
             background-color: #fff;
         }
-
         .table th,
         .table td {
             text-align: left;
@@ -160,11 +158,9 @@ $result = $conn->query($sql);
             color: white;
             border-bottom: 2px solid #dee2e6;
         }
-
         .table tbody tr:nth-child(odd) {
             background-color: #f9f9f9;
         }
-
         .table tbody tr:hover {
             background-color: #f1f1f1;
         }
@@ -178,12 +174,10 @@ $result = $conn->query($sql);
             text-decoration: none;
             font-size: 14px;
         }
-
         .btn-add:hover {
             background-color: #273c4e;
             color: white;
         }
-
         .search-bar {
             display: flex;
             justify-content: space-between;
@@ -191,14 +185,12 @@ $result = $conn->query($sql);
             margin-bottom: 10px;
             margin-left: 20px;
         }
-
         .search-bar input {
             padding: 8px 12px;
             border-radius: 10px;
             border: 1px solid #ccc;
             width: 300px;
         }
-
         .search-bar button {
             padding: 8px 12px;
             border: none;
@@ -206,27 +198,22 @@ $result = $conn->query($sql);
             color: white;
             border-radius: 20px;
         }
-
         .table .dropdown-menu {
             min-width: 100px;
         }
-
         .table .profile-pic {
             width: 30px;
             height: 30px;
             border-radius: 50%;
             margin-right: 10px;
         }
-
         .table .user-info {
             display: flex;
             align-items: center;
         }
-
         .table .user-info span {
             margin-left: 10px;
         }
-
         .survey-content button {
             background-color: #007bff;
             color: #fff;
@@ -258,7 +245,7 @@ $result = $conn->query($sql);
         <div class="content-header">
             <h1></h1>
             <div class="profile">
-                <a class="nav-link" href="admin_profile.html"><span>Admin</span></a>
+                <a class="nav-link" href="#"><span>Admin</span></a>
             </div>
         </div>
         <div class="survey-content">
@@ -268,7 +255,7 @@ $result = $conn->query($sql);
                 <input type="text" placeholder="Cari">
             </div>
 
-            <?php if (empty($result)) : ?>
+            <?php if ($result->num_rows == 0) : ?>
                 <div>
                     <h3>Survei belum diisi, Hubungi admin</h3>
                 </div>
@@ -282,25 +269,47 @@ $result = $conn->query($sql);
                                 <th>Keterangan</th>
                                 <th>Tanggal</th>
                                 <th>Total Poin</th>
+                                <th>Detail Profil</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["responden_nama"] . "</td>";
-                                    echo "<td>" . $row["survey_nama"] . "</td>";
-                                    echo "<td>Mahasiswa</td>";
-                                    echo "<td>" . $row["responden_tanggal"] . "</td>";
-                                    echo "<td>" . $row["total_points"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='5'>No data found</td></tr>";
-                            }
-                            $conn->close();
-                            ?>
+                            <?php while ($row = $result->fetch_assoc()) : ?>
+                                <tr>
+                                    <td><?php echo $row["responden_nama"]; ?></td>
+                                    <td><?php echo $row["survey_nama"]; ?></td>
+                                    <td>Mahasiswa</td>
+                                    <td><?php echo $row["responden_tanggal"]; ?></td>
+                                    <td><?php echo $row["total_points"]; ?></td>
+                                    <td>
+                                        <button class="btn btn-info" data-toggle="modal" data-target="#userModal<?php echo $row['responden_mahasiswa_id']; ?>">Lihat Profil</button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="userModal<?php echo $row['responden_mahasiswa_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="userModalLabel">Detail Profil</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p><strong>Nama:</strong> <?php echo $row['responden_nama']; ?></p>
+                                                        <p><strong>NIM:</strong> <?php echo $row['responden_nim']; ?></p>
+                                                        <p><strong>Prodi:</strong> <?php echo $row['responden_prodi']; ?></p>
+                                                        <p><strong>Email:</strong> <?php echo $row['responden_email']; ?></p>
+                                                        <p><strong>Telepon:</strong> <?php echo $row['responden_hp']; ?></p>
+                                                        <p><strong>Tahun Masuk:</strong> <?php echo $row['tahun_masuk']; ?></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
                         </tbody>
                     </table>
                 </div>
@@ -308,5 +317,9 @@ $result = $conn->query($sql);
             <?php endif; ?>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $insert_stmt->bind_param("issssssssssssssssssssss", $user_id, $nama, $role, $nim, $email, $jurusan, $no_telp, $tahun_masuk, $nip, $unit, $no_peg, $jenis_kelamin, $umur, $pekerjaan, $penghasilan, $nim_mahasiswa, $nama_mahasiswa, $nama_prodi, $tahun_lulus, $jabatan, $perusahaan, $kota, $prodi);
 
                     if ($insert_stmt->execute()) {
-                        header("Location: user-login.php");
+                        header("Location: index.php");
                     } else {
                         echo "Terjadi kesalahan. Silakan coba lagi.";
                     }
@@ -229,8 +229,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <input type="text" id="nama" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="nama" required autofocus value="<?php echo htmlspecialchars($nama ?? ''); ?>" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="username" style="font-weight: bold; color: #0D2A0D;">Role</label>
-                                        <input type="text" id="username" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="username" placeholder="Masukkan Username Anda" required value="dosen" readonly>
+                                        <label for="role" style="font-weight: bold; color: #0D2A0D;">Role</label>
+                                        <input type="text" id="role" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="role" placeholder="Masukkan Username Anda" required value="dosen" readonly>
                                     </div>
 
                                     <div class="form-group">
@@ -253,8 +253,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <input type="text" id="nama" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="nama" required autofocus value="<?php echo htmlspecialchars($nama ?? ''); ?>" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="username" style="font-weight: bold; color: #0D2A0D;">Role</label>
-                                        <input type="text" id="username" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="username" placeholder="Masukkan Username Anda" required value="tendik" readonly>
+                                        <label for="role" style="font-weight: bold; color: #0D2A0D;">Role</label>
+                                        <input type="text" id="role" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="role" placeholder="Masukkan Username Anda" required value="tendik" readonly>
                                     </div>
 
                                     <div class="form-group">
@@ -276,8 +276,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <input type="text" id="nama" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="nama" required autofocus value="<?php echo htmlspecialchars($nama ?? ''); ?>" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="username" style="font-weight: bold; color: #0D2A0D;">Role</label>
-                                        <input type="text" id="username" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="username" placeholder="Masukkan Username Anda" required value="Orang Tua" readonly>
+                                        <label for="role" style="font-weight: bold; color: #0D2A0D;">Role</label>
+                                        <input type="text" id="role" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="role" placeholder="Masukkan role Anda" required value="Orang Tua" readonly>
                                     </div>
 
                                     <div class="form-group">
@@ -291,43 +291,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <label for="umur" style="font-weight: bold; color: #0D2A0D;">
                                             Umur <span style="color: red;">*</span>
                                         </label>
-                                        <input type="text" id="umur" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="umur" placeholder="Masukkan Unit Anda" required>
+                                        <input type="text" id="umur" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="umur" placeholder="Masukkan Umur Anda" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="no_telp" style="font-weight: bold; color: #0D2A0D;">
-                                            no handphone <span style="color: red;">*</span>
+                                            No handphone <span style="color: red;">*</span>
                                         </label>
-                                        <input type="text" id="no_telp" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="no_telp" placeholder="Masukkan Unit Anda" required>
+                                        <input type="text" id="no_telp" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="no_telp" placeholder="Masukkan No HP Anda" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="pendidikan" style="font-weight: bold; color: #0D2A0D;">
                                             Pendidikan <span style="color: red;">*</span>
                                         </label>
-                                        <input type="text" id="pendidikan" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="pendidikan" placeholder="Masukkan Unit Anda" required>
+                                        <input type="text" id="pendidikan" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="pendidikan" placeholder="Masukkan Pendidikan Anda" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pekerjaan" style="font-weight: bold; color: #0D2A0D;">
+                                            Pekerjaan <span style="color: red;">*</span>
+                                        </label>
+                                        <input type="text" id="pekerjaan" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="pekerjaan" placeholder="Masukkan Pekerjaan Anda" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="penghasilan" style="font-weight: bold; color: #0D2A0D;">
                                             Penghasilan <span style="color: red;">*</span>
                                         </label>
-                                        <input type="text" id="penghasilan" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="penghasilan" placeholder="Masukkan Unit Anda" required>
+                                        <input type="text" id="penghasilan" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="penghasilan" placeholder="Masukkan Penghasilan Anda" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="nim_mahasiswa" style="font-weight: bold; color: #0D2A0D;">
                                             Nim Mahasiswa <span style="color: red;">*</span>
                                         </label>
-                                        <input type="text" id="nim_mahasiswa" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="nim_mahasiswa" placeholder="Masukkan Unit Anda" required>
+                                        <input type="text" id="nim_mahasiswa" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="nim_mahasiswa" placeholder="Masukkan Nim Putra/Putri Anda" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="nama_mahasiswa" style="font-weight: bold; color: #0D2A0D;">
                                             Nama Mahasiswa <span style="color: red;">*</span>
                                         </label>
-                                        <input type="text" id="nama_mahasiswa" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="nama_mahasiswa" placeholder="Masukkan Unit Anda" required>
+                                        <input type="text" id="nama_mahasiswa" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="nama_mahasiswa" placeholder="Masukkan Nama Putra/Putri Anda" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="nama_prodi" style="font-weight: bold; color: #0D2A0D;">
                                             Nama Prodi <span style="color: red;">*</span>
                                         </label>
-                                        <input type="text" id="nama_prodi" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="nama_prodi" placeholder="Masukkan Unit Anda" required>
+                                        <input type="text" id="nama_prodi" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="nama_prodi" placeholder="Masukkan Prodi Putra/Putri Anda" required>
                                     </div>
                                 <?php } elseif ($role == 'alumni') { ?>
                                     <div class="form-group">
@@ -335,8 +341,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <input type="text" id="nama" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="nama" required autofocus value="<?php echo htmlspecialchars($nama ?? ''); ?>" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="username" style="font-weight: bold; color: #0D2A0D;">Role</label>
-                                        <input type="text" id="username" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="username" placeholder="Masukkan Username Anda" required value="tendik" readonly>
+                                        <label for="role" style="font-weight: bold; color: #0D2A0D;">Role</label>
+                                        <input type="text" id="role" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="role" placeholder="Masukkan Username Anda" required value="tendik" readonly>
                                     </div>
 
                                     <div class="form-group">
@@ -350,13 +356,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <label for="email" style="font-weight: bold; color: #0D2A0D;">
                                             Email <span style="color: red;">*</span>
                                         </label>
-                                        <input type="text" id="email" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="email" placeholder="Masukkan Unit Anda" required>
+                                        <input type="text" id="email" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="email" placeholder="Masukkan Email Anda" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="prodi" style="font-weight: bold; color: #0D2A0D;">
                                             Prodi <span style="color: red;">*</span>
                                         </label>
-                                        <input type="text" id="prodi" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="prodi" placeholder="Masukkan Unit Anda" required>
+                                        <input type="text" id="prodi" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65" class="form-control form-control-user" name="prodi" placeholder="Masukkan Prodi Anda" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="no_telp" style="font-weight: bold; color: #0D2A0D;">
@@ -376,8 +382,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <input type="text" id="nama" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="nama" required autofocus value="<?php echo htmlspecialchars($nama ?? ''); ?>" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="username" style="font-weight: bold; color: #0D2A0D;">Role</label>
-                                        <input type="text" id="username" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="username" placeholder="Masukkan Username Anda" required value="tendik" readonly>
+                                        <label for="industri" style="font-weight: bold; color: #0D2A0D;">Role</label>
+                                        <input type="text" id="industri" style="width: 350px; border-radius: 16px; display: flex; box-sizing: border-box; border:1px solid #304C65; color: black" class="form-control form-control-user" name="industri" placeholder="Masukkan Username Anda" required value="tendik" readonly>
                                     </div>
 
                                     <div class="form-group">

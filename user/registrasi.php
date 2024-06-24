@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 
-require_once 'connection.php';
+require_once '../.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
@@ -126,7 +126,7 @@ ob_end_flush();
                                         Lanjut</button>
                                 </div>
                                 <div class="d-flex align-items-center" style="padding-left: 130px; padding-top: 30px;">
-                                    <a href="user-login.php" class="btn btn-user btn-block" style="width: 90px; background-color: #304C65; color: white; text-align: center; text-decoration: none;">
+                                    <a href="index.php" class="btn btn-user btn-block" style="width: 90px; background-color: #304C65; color: white; text-align: center; text-decoration: none;">
                                         Masuk</a>
                                 </div>
                             </form>
